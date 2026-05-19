@@ -1,0 +1,17 @@
+# BỎ QUA THƯ MỤC THƯ VIỆN 
+# (Cực kỳ nặng. Thành viên khác khi tải code về chỉ cần gõ 'npm install' là máy tự tải lại)
+node_modules/
+
+# BỎ QUA CÁC FILE CHỨA BIẾN MÔI TRƯỜNG BẢO MẬT
+# (Chứa mật khẩu, chuỗi kết nối database, API keys... tuyệt đối không đưa lên GitHub)
+.env
+
+# BỎ QUA FILE LOG CỦA HỆ THỐNG VÀ NODEJS
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# BỎ QUA CÁC FILE RÁC CỦA HỆ ĐIỀU HÀNH
+.DS_Store
+Thumbs.db

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Cây nhà lá cành</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+  </head>
+  <body class="font-['Outfit',sans-serif]">
+    <header>
+      <div class="navbar bg-base-100 flex border-b-1 mx-auto w-360 h-auto">
+        <div class="flex-1">
+          <a href="/">
+            <img src="/images/logo.png" alt="Logo" class="logo pb-5 w-auto h-20">
+          </a>
+        </div>
+        <div class="flex-none">
+          <ul class="menu menu-horizontal px-1 pb-0 gap-8">
+            <li><a class="text-sm font-bold">GALLERY</a></li>
+            <li><a class="text-sm font-bold">ABOUT</a></li>
+            <li>
+              <details>
+                <summary class="text-sm font-bold">MORE</summary>
+                <ul class="bg-base-100 rounded-t-none p-2 w-30">
+                  <% if (user) { %>
+                    <li><b>Hi, <%= user.username %></b></li>
+                    <li><a href="/logout">Logout</a></li>
+                    <li><a href="/history">Orders</a></li>
+                  <% } else { %>
+                    <li><a href="/login">Login</a></li>
+                  <% } %>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <img src="/images/logo.png" alt="logo" class="mx-auto mb-4 mt-6 w-7xl h-auto">
+      <div class="w-6xl mx-auto">
+        <div class="carousel w-full">
+          <div id="slide1" class="carousel-item relative w-full">
+            <img
+              src="/images/summer_sale/sunflower.png"
+              class="w-full rounded-4xl" />
+            <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+              <a href="#slide4" class="btn btn-circle">❮</a>
+              <a href="#slide2" class="btn btn-circle">❯</a>
+            </div>
+          </div>
+          <div id="slide2" class="carousel-item relative w-full">
+            <img
+              src="/images/summer_sale/periwinkle.png"
+              class="w-full rounded-4xl" />
+            <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+              <a href="#slide1" class="btn btn-circle">❮</a>
+              <a href="#slide3" class="btn btn-circle">❯</a>
+            </div>
+          </div>
+          <div id="slide3" class="carousel-item relative w-full">
+            <img
+              src="/images/summer_sale/hydrangea.png"
+              class="w-full rounded-4xl" />
+            <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+              <a href="#slide2" class="btn btn-circle">❮</a>
+              <a href="#slide4" class="btn btn-circle">❯</a>
+            </div>
+          </div>
+          <div id="slide4" class="carousel-item relative w-full">
+            <img
+              src="/images/summer_sale/portulaca.png"
+              class="w-full rounded-4xl" />
+            <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+              <a href="#slide3" class="btn btn-circle">❮</a>
+              <a href="#slide5" class="btn btn-circle">❯</a>
+            </div>
+          </div>
+          <div id="slide5" class="carousel-item relative w-full">
+            <img
+              src="/images/summer_sale/bougainvillea.png"
+              class="w-full rounded-4xl" />
+            <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+              <a href="#slide4" class="btn btn-circle">❮</a>
+              <a href="#slide1" class="btn btn-circle">❯</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section class="mt-20 mx-auto text-center">
+        <div class="mb-8">
+          <h2 class="text-base font-bold pb-4">WHO WE ARE</h2>
+          <p class="text-4xl font-bold"> We're FlowerPremiu and we're here to <br> help you find your floral story.</p>
+        </div>
+        <button>
+          <a href="/about" class="btn bg-[#7a9d66]/90 text-white">ABOUT US</a>
+        </button>
+      </section>
+      <section class="mt-20 mx-auto text-center">
+        <div class="carousel carousel-center rounded-box space-x-8 p-4">
+          <div class="carousel-item">
+            <div class="carousel carousel-vertical rounded-box h-96">
+              <div class="carousel-item h-full">
+                <img src="/images/romantic/rose_red/rose_red.webp"/>
+              </div>
+              <div class="carousel-item h-full">
+                <img src="/images/romantic/rose_white/rose_white.webp"/>
+              </div>
+              <div class="carousel-item h-full">
+                <img src="/images/romantic/rose_orange/rose_orange.webp" />
+              </div>
+              <div class="carousel-item h-full">
+                <img src="/images/romantic/rose_yellow/rose_yellow.webp" />
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="carousel carousel-vertical rounded-box h-96">
+              <div class="carousel-item h-full">
+                <img src="/images/romantic/peony_red/peony_red.webp"/>
+              </div>
+              <div class="carousel-item h-full">
+                <img src="/images/romantic/peony_white/peony_white.webp"/>
+              </div>
+              <div class="carousel-item h-full">
+                <img src="/images/romantic/peony_peach/peony_peach.webp" />
+              </div>
+              <div class="carousel-item h-full">
+                <img src="/images/romantic/peony_yellow/peony_yellow.webp" />
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="carousel carousel-vertical rounded-box h-96">
+              <div class="carousel-item h-full">
+                <img src="/images/romantic/tulip_red/tulip_red.webp"/>
+              </div>
+              <div class="carousel-item h-full">
+                <img src="/images/romantic/tulip_white/tulip_white.webp"/>
+              </div>
+              <div class="carousel-item h-full">
+                <img src="/images/romantic/tulip_orange/tulip_orange.webp" />
+              </div>
+              <div class="carousel-item h-full">
+                <img src="/images/romantic/tulip_yellow/tulip_yellow.webp" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="border-b-1 pb-8 w-320 mx-auto">
+        <h2 class="text-6xl font-bold mx-auto mt-20 text-center">WHAT WE DO!</h2>
+        <p class="text-xl text-center mx-auto mt-8 mb-4">We bring a touch of that simple magic into your world.</p>
+      </div>
+      <ol class="w-320 mx-auto">
+        <li class="text-center mx-auto border-b-1 pb-4">
+          <p class="mt-25 mb-20 text-6xl font-bold">1</p>
+          <img src="/images/bloomingwithpride.webp" alt="flower installation" class="mx-auto h-auto w-64 rounded-4xl"/>
+          <p class="mt-20 font-bold text-6xl">FLORAL INSTALLATIONS</p>
+          <p class="mt-10 mb-10 text-xl">Living art for homes, businesses, and events.</p>
+        </li>
+        <li class="text-center mx-auto border-b-1 pb-4">
+          <p class="mt-25 mb-20 text-6xl font-bold">2</p>
+          <img src="/images/romanofiori.webp" alt="Native Plant Arrangements" class="mx-auto h-auto w-64 rounded-4xl"/>
+          <p class="mt-20 font-bold text-6xl">NATIVE PLANT ARRANGEMENTS</p>
+          <p class="mt-10 mb-10 text-xl">Whether it’s a private retreat or a public space, we craft floral experiences that bloom beyond expectations.</p>
+        </li>
+        <li class="text-center mx-auto border-b-1 pb-4">
+          <p class="mt-25 mb-20 text-6xl font-bold">3</p>
+          <img src="/images/naistepaevaks.webp" alt="Custom Floral Concepts" class="mx-auto h-auto w-64 rounded-4xl"/>
+          <p class="mt-20 font-bold text-6xl">CUSTOM FLORAL CONCEPTS</p>
+          <p class="mt-10 mb-10 text-xl">Your vision, our blooms. We build arrangements that are both personal and exquisitely simple.</p>
+        </li>
+      </ol>
+      <img src="/images/hoatulip.webp" class="mt-25 mb-20 mx-auto rounded-4xl"/>
+      <section class="flex flex-col items-center pt-20 pb-50">
+        <div class="mx-auto text-center mb-8">
+          <p class="text-base font-bold pb-4">Work with us</p>
+          <p class="text-4xl font-bold">Discover how we can add a touch of <br>natural beauty to your next event.</p>
+        </div>
+        <button>
+          <a href="/about" class="btn bg-[#7a9d66]/90 text-white">ABOUT US</a>
+        </button>
+      </section>  
+    </main> 
+    <footer>
+      <div class="relative w-fit mx-auto rounded-t-4xl overflow-hidden">
+        <img src="/images/greeting.png" class="block w-320 h-150 object-cover" alt="Background image"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none"></div>
+        <div class="absolute inset-0 flex justify-between items-end p-8 text-white">
+          <p class="text-2xl font-medium relative z-10">Hai Phong, Vietnam</p>
+          <p class="absolute left-1/2 bottom-30 -translate-x-1/2 font-bold text-9xl font-serif z-10">FP.</p>
+          <a href="/contact" class="text-2xl font-medium relative z-10">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

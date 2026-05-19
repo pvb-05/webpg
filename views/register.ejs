@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Register</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+</head>
+
+<body class="bg-[url('/images/bg_login.png')] bg-cover bg-center bg-no-repeat min-h-screen flex items-center justify-center font-['Outfit',sans-serif]">
+    
+    <div class="flex h-120 w-200 rounded-2xl bg-white overflow-hidden shadow-2xl"> 
+        <div class="flex-1 flex items-center justify-center p-8">
+            <form class="flex flex-col gap-6" method="POST" action="/register">
+                <h1 class="mx-auto text-5xl font-bold p-5">Register</h1>
+                    <label class="input validator">
+                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g
+                        stroke-linejoin="round"
+                        stroke-linecap="round"
+                        stroke-width="2.5"
+                        fill="none"
+                        stroke="currentColor"
+                        >
+                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                        </g>
+                    </svg>
+                    <input
+                        name="username"
+                        type="text"
+                        required
+                        placeholder="Username"
+                        pattern="[A-Za-z][A-Za-z0-9\-]*"
+                        minlength="3"
+                        maxlength="30"
+                        size="30"
+                        title="Only letters, numbers or dash"
+                    />
+                    </label>
+                    <label class="input validator">
+                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g
+                        stroke-linejoin="round"
+                        stroke-linecap="round"
+                        stroke-width="2.5"
+                        fill="none"
+                        stroke="currentColor"
+                        >
+                        <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                        </g>
+                    </svg>
+                    <input name="email" type="email" placeholder="mail@site.com" required />
+                    </label>
+                    <label class="input validator">
+                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g
+                        stroke-linejoin="round"
+                        stroke-linecap="round"
+                        stroke-width="2.5"
+                        fill="none"
+                        stroke="currentColor"
+                        >
+                        <path
+                            d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"
+                        ></path>
+                        <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+                        </g>
+                    </svg>
+                    <input
+                        name="password"
+                        type="password"
+                        required
+                        placeholder="Password"
+                        minlength="8"
+                        size="30"
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                        title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
+                    />
+                    </label>
+                    <button class="btn bg-[#7a9d66]/90 text-white" type="submit">Register</button>
+            </form>
+        </div>
+        <div class="flex flex-col flex-1 bg-[#7a9d66]/90 items-center justify-center p-8">
+            <h1 class="mx-auto text-3xl font-bold p-5 text-white">Welcome Back!</h1>
+            <p class="mx-auto text-base text-white">Welcome Back! We are so happy to have you here. It's great to see you again. We hope you had a safe and enjoyable time away!</p>
+            <a href="/login" class="btn btn-outline btn-light mx-auto mt-6 rounded-full">Have Account? Login.</a>
+        </div>
+    </div>
+</body>
+
+</html>
