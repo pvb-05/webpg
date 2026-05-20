@@ -78,5 +78,10 @@ router.get('/logout', function(req, res, next) {
     res.redirect('/');
   });
 });
-
+router.get('/contact', function(req, res) {
+  res.render('contact');
+});
+router.get('/about', function(req, res) {
+  res.render('about');
+});
 module.exports = router;

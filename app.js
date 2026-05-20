@@ -4,7 +4,7 @@ var session = require('express-session');
 
 var path = require('path');
 var indexRouter = require('./routes/index');
-
+var contactRouter = require('./routes/contact');
 var app = express();
 
 // view engine setup
@@ -30,6 +30,7 @@ app.use(function(req, res, next) {
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/', contactRouter);
 
 
 
