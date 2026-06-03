@@ -32,6 +32,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 
+const orderRouter = require('./routes/orders');
+app.use('/', orderRouter);
+
 
 
 
