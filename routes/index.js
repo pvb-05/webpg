@@ -99,7 +99,6 @@ router.get('/history', (req, res) => {
             console.error(err.message);
             return res.status(500).send("Lỗi tải lịch sử đơn hàng");
         }
-
         res.render('history', { orders: rows });
     });
 });
