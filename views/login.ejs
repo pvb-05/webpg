@@ -2,78 +2,58 @@
 <html lang="en">
 <head>
     <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    
+    <link rel="stylesheet" href="/stylesheets/style.css" />
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
 <body class="bg-[url('/images/bg_login.png')] bg-cover bg-center bg-no-repeat min-h-screen flex items-center justify-center font-['Outfit',sans-serif]">
     
     <div class="flex h-120 w-200 rounded-2xl bg-white overflow-hidden shadow-2xl"> 
+        
         <div class="flex-1 flex items-center justify-center p-8">
-            <form class="flex flex-col gap-6" method="POST" action="/login">
+            <form class="flex flex-col gap-6 w-full max-w-sm" method="POST" action="/login">
                 <h1 class="mx-auto text-5xl font-bold p-5">Login</h1>
-                    <label class="input validator">
-                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <g
-                        stroke-linejoin="round"
-                        stroke-linecap="round"
-                        stroke-width="2.5"
-                        fill="none"
-                        stroke="currentColor"
-                        >
+                
+                <label class="input validator">
+                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
                         <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                         <circle cx="12" cy="7" r="4"></circle>
-                        </g>
                     </svg>
-                    <input
-                        name="username"
-                        type="text"
-                        required
-                        placeholder="Username"
-                        maxlength="30"
-                        size="30"
-                    />
-                    </label>
-                    <label class="input validator">
-                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <g
-                        stroke-linejoin="round"
-                        stroke-linecap="round"
-                        stroke-width="2.5"
-                        fill="none"
-                        stroke="currentColor"
-                        >
-                        <path
-                            d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"
-                        ></path>
+                    <input name="username" type="text" required placeholder="Username" maxlength="30" size="30" />
+                </label>
+
+                <label class="input validator">
+                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
+                        <path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path>
                         <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
-                        </g>
                     </svg>
-                    <input
-                        name="password"
-                        type="password"
-                        required
-                        placeholder="Password"
-                        size="30"
-                    />
-                    </label>
-                    <button class="btn bg-[#7a9d66]/90 text-white" type="submit">Login</button>
+                    <input name="password" type="password" required placeholder="Password" size="30" />
+                </label>
+
+                <button class="btn bg-[#7a9d66]/90 text-white hover:bg-[#668554]" type="submit">Login</button>
             </form>
         </div>
-        <div class="flex flex-col flex-1 bg-[#7a9d66]/90 items-center justify-center p-8">
+
+        <div class="flex flex-col flex-1 bg-[#7a9d66]/90 items-center justify-center p-8 text-center">
             <h1 class="mx-auto text-3xl font-bold p-5 text-white">Welcome Back!</h1>
-            <p class="mx-auto text-base text-white">Welcome Back! We are so happy to have you here. It's great to see you again. We hope you had a safe and enjoyable time away!</p>
-            <a href="/register" class="btn btn-outline btn-light mx-auto mt-6 rounded-full">Not account yet? Register.</a>
+            <p class="mx-auto text-base text-white leading-relaxed">
+                Welcome Back! We are so happy to have you here. It's great to see you again. We hope you had a safe and enjoyable time away!
+            </p>
+            <a href="/register" class="btn btn-outline border-white text-white hover:bg-white hover:text-[#7a9d66] mx-auto mt-6 rounded-full">
+                Not account yet? Register.
+            </a>
         </div>
+
     </div>
 </body>
-
 </html>

@@ -1,22 +1,27 @@
 var express = require('express');
 var bcrypt = require('bcrypt');
 var db = require('../db');
-const { route } = require('../app');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+/* GET views*/
+router.get('/', function(req, res) {
+  res.render('index');
 });
 
-router.get('/login', function(req, res, next) {
-  res.render('login', { title: 'Login' });
+router.get('/login', function(req, res) {
+  res.render('login');
 });
 
-router.get('/register', function(req, res, next) {
-  res.render('register', { title: 'Register' });
+router.get('/register', function(req, res) {
+  res.render('register');
 });
 
+router.get('/logout', function(req, res, next) {
+  req.session.destroy();
+  res.redirect('/');
+});
+
+/* register handler */
 router.post('/register', async function(req, res, next) {
   const username = req.body.username;
   const email = req.body.email;
@@ -24,20 +29,20 @@ router.post('/register', async function(req, res, next) {
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-
     const sql = "INSERT INTO Users (username, email, password) VALUES (?, ?, ?)";
     db.run(sql, [username, email, hashedPassword], function(err) {
       if (err) {
-        console.error("Lỗi Database:", err.message);
         return res.send('Lỗi: Tên đăng nhập hoặc Email đã tồn tại!');
       }
       res.redirect('/login');
     });
-  } catch (error) {
+  } 
+  catch (error) {
     next(error);
   }
 });
 
+/* login handler */
 router.post('/login', function(req, res, next) {
   const username = req.body.username;
   const password = req.body.password;
@@ -45,7 +50,6 @@ router.post('/login', function(req, res, next) {
   const sql = "SELECT * FROM Users WHERE username = ?";
   db.get(sql, [username], async function(err, user) {
     if (err) {
-      console.error("Lỗi Database:", err.message);
       return res.send('Lỗi: Không thể đăng nhập!');
     }
     if (!user) {
@@ -57,31 +61,56 @@ router.post('/login', function(req, res, next) {
       if (match) {
         req.session.user = {
           id: user.id,
-          username: user.username,
-          role: user.role
+          username: user.username
         };
         res.redirect('/');
-      } else {
+      } 
+      else {
         res.send('Lỗi: Mật khẩu không đúng!');
       }
-    } catch (error) {
+    } 
+    catch (error) {
       next(error);
     }
   });
 });
 
-router.get('/logout', function(req, res, next) {
-  req.session.destroy(function(err) {
-    if (err) {
-      console.error("Lỗi khi đăng xuất:", err);
-    }
-    res.redirect('/');
-  });
+
+router.get('/orders/success', (req, res) => {
+    res.render('success');
 });
+
+router.get('/orders/cancel', (req, res) => {
+    res.render('cancel');
+});
+
+router.get('/history', (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/login'); 
+    }
+    
+    const currentUserId = req.session.user.id;
+
+    const sql = `SELECT * FROM Orders WHERE user_id = ? ORDER BY id DESC`;
+    
+    db.all(sql, [currentUserId], (err, rows) => {
+        if (err) {
+            console.error(err.message);
+            return res.status(500).send("Lỗi tải lịch sử đơn hàng");
+        }
+        res.render('history', { orders: rows });
+    });
+});
+
+router.get('/checkout', function(req, res, next) {
+  res.render('checkout');
+});
+
 router.get('/contact', function(req, res) {
   res.render('contact');
 });
 router.get('/about', function(req, res) {
   res.render('about');
 });
+
 module.exports = router;
