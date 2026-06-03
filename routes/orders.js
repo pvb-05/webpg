@@ -14,14 +14,19 @@ const payos = new PayOS({
 router.post('/api/orders', (req, res) => {
     const { customer_name, customer_phone, shipping_address, total, payment_method, items } = req.body;
 
+    // LẤY ID NGƯỜI DÙNG TỪ SESSION CHUẨN XÁC
+const userId = req.session.user ? req.session.user.id : null;
+
     if (!customer_name || !customer_phone || !shipping_address || !items || items.length === 0) {
         return res.status(400).json({ success: false, message: "Vui lòng điền đầy đủ thông tin!" });
     }
 
     db.serialize(() => {
-        const orderSql = `INSERT INTO Orders (customer_name, customer_phone, shipping_address, total, payment_method, status) VALUES (?, ?, ?, ?, ?, 'Pending')`;
+        // 2. SỬA CÂU LỆNH SQL: Khai báo rõ cột user_id
+        const orderSql = `INSERT INTO Orders (user_id, customer_name, customer_phone, shipping_address, total, payment_method, status) VALUES (?, ?, ?, ?, ?, ?, 'Pending')`;
         
-        db.run(orderSql, [customer_name, customer_phone, shipping_address, total, payment_method], async function(err) {
+        // 3. TRUYỀN BIẾN userId vào đầu mảng tham số
+        db.run(orderSql, [userId, customer_name, customer_phone, shipping_address, total, payment_method], function(err) {
             if (err) return res.status(500).json({ success: false, error: err.message });
 
             const orderId = this.lastID; 
@@ -32,7 +37,7 @@ router.post('/api/orders', (req, res) => {
             stmt.finalize(async (err) => {
                 if (err) return res.status(500).json({ success: false, error: err.message });
 
-                // XỬ LÝ PAYOS VỚI PHIÊN BẢN V2 MỚI NHẤT
+                // Xử lý PayOS giữ nguyên như cũ
                 if (payment_method === 'payos') {
                     try {
                         const paymentBody = {
@@ -44,7 +49,6 @@ router.post('/api/orders', (req, res) => {
                             items: items.map(i => ({ name: `Ma SP ${i.product_id}`, quantity: i.quantity, price: i.price }))
                         };
 
-                        // 3. GỌI HÀM TẠO LINK CHUẨN V2
                         const paymentLinkData = await payos.paymentRequests.create(paymentBody);
 
                         return res.json({
@@ -55,20 +59,11 @@ router.post('/api/orders', (req, res) => {
                         });
 
                     } catch (payOsError) {
-                        console.error("Lỗi cấu hình payOS:", payOsError);
-                        return res.status(500).json({ 
-                            success: false, 
-                            message: "Lỗi khi tạo link thanh toán với payOS", 
-                            error: payOsError.message || "Kiểm tra lại cấu hình Key"
-                        });
+                        return res.status(500).json({ success: false, message: "Lỗi khi tạo link với payOS", error: payOsError.message });
                     }
                 }
 
-                res.json({
-                    success: true,
-                    message: "Đơn hàng COD đã được ghi nhận thành công!",
-                    orderId: orderId
-                });
+                res.json({ success: true, message: "Đơn hàng COD đã được ghi nhận thành công!", orderId: orderId });
             });
         });
     });

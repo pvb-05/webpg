@@ -85,14 +85,26 @@ router.get('/orders/cancel', (req, res) => {
     res.render('cancel');
 });
 
+// Route hiển thị trang Lịch sử đơn hàng cá nhân
 router.get('/history', (req, res) => {
-    const sql = `SELECT * FROM Orders ORDER BY id DESC`;
+    // 1. KIỂM TRA ĐĂNG NHẬP đúng theo cấu trúc session của bạn
+    if (!req.session.user) {
+        return res.redirect('/login'); 
+    }
     
-    db.all(sql, [], (err, rows) => {
+    // Trỏ đúng vào thuộc tính 'id' nằm bên trong object 'user'
+    const currentUserId = req.session.user.id;
+
+    // 2. LỌC DỮ LIỆU: Chỉ lấy đơn hàng của user_id này
+    const sql = `SELECT * FROM Orders WHERE user_id = ? ORDER BY id DESC`;
+    
+    db.all(sql, [currentUserId], (err, rows) => {
         if (err) {
             console.error(err.message);
             return res.status(500).send("Lỗi tải lịch sử đơn hàng");
-        }        
+        }
+        
+        // Trả dữ liệu về giao diện
         res.render('history', { orders: rows });
     });
 });
