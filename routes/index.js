@@ -16,7 +16,10 @@ router.get('/register', function(req, res) {
   res.render('register');
 });
 
-/* POST register */
+router.get('/checkout', function(req, res, next) {
+  res.render('checkout');
+});
+
 router.post('/register', async function(req, res, next) {
   const username = req.body.username;
   const email = req.body.email;
@@ -72,6 +75,26 @@ router.post('/login', function(req, res, next) {
 router.get('/logout', function(req, res, next) {
   req.session.destroy();
   res.redirect('/');
+});
+
+router.get('/orders/success', (req, res) => {
+    res.render('success');
+});
+
+router.get('/orders/cancel', (req, res) => {
+    res.render('cancel');
+});
+
+router.get('/history', (req, res) => {
+    const sql = `SELECT * FROM Orders ORDER BY id DESC`;
+    
+    db.all(sql, [], (err, rows) => {
+        if (err) {
+            console.error(err.message);
+            return res.status(500).send("Lỗi tải lịch sử đơn hàng");
+        }        
+        res.render('history', { orders: rows });
+    });
 });
 
 module.exports = router;

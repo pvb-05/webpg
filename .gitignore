@@ -5,6 +5,7 @@ node_modules/
 # BỎ QUA CÁC FILE CHỨA BIẾN MÔI TRƯỜNG BẢO MẬT
 # (Chứa mật khẩu, chuỗi kết nối database, API keys... tuyệt đối không đưa lên GitHub)
 .env
+config.js
 
 # BỎ QUA FILE LOG CỦA HỆ THỐNG VÀ NODEJS
 npm-debug.log*
@@ -15,3 +16,5 @@ yarn-error.log*
 # BỎ QUA CÁC FILE RÁC CỦA HỆ ĐIỀU HÀNH
 .DS_Store
 Thumbs.db
+
+*.db

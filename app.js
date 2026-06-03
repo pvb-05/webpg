@@ -3,6 +3,7 @@ var session = require('express-session');
 var path = require('path');
 
 var indexRouter = require('./routes/index');
+var orderRouter = require('./routes/orders');
 
 var app = express();
 
@@ -32,5 +33,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // routes setup
 app.use('/', indexRouter);
+app.use('/', orderRouter);
 
 module.exports = app;
