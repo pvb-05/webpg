@@ -14,18 +14,15 @@ const payos = new PayOS({
 router.post('/api/orders', (req, res) => {
     const { customer_name, customer_phone, shipping_address, total, payment_method, items } = req.body;
 
-    // LẤY ID NGƯỜI DÙNG TỪ SESSION CHUẨN XÁC
-const userId = req.session.user ? req.session.user.id : null;
+    const userId = req.session.user ? req.session.user.id : null;
 
     if (!customer_name || !customer_phone || !shipping_address || !items || items.length === 0) {
         return res.status(400).json({ success: false, message: "Vui lòng điền đầy đủ thông tin!" });
     }
 
     db.serialize(() => {
-        // 2. SỬA CÂU LỆNH SQL: Khai báo rõ cột user_id
         const orderSql = `INSERT INTO Orders (user_id, customer_name, customer_phone, shipping_address, total, payment_method, status) VALUES (?, ?, ?, ?, ?, ?, 'Pending')`;
         
-        // 3. TRUYỀN BIẾN userId vào đầu mảng tham số
         db.run(orderSql, [userId, customer_name, customer_phone, shipping_address, total, payment_method], function(err) {
             if (err) return res.status(500).json({ success: false, error: err.message });
 
@@ -37,7 +34,6 @@ const userId = req.session.user ? req.session.user.id : null;
             stmt.finalize(async (err) => {
                 if (err) return res.status(500).json({ success: false, error: err.message });
 
-                // Xử lý PayOS giữ nguyên như cũ
                 if (payment_method === 'payos') {
                     try {
                         const paymentBody = {
@@ -69,19 +65,14 @@ const userId = req.session.user ? req.session.user.id : null;
     });
 });
 
-// API Lắng nghe Webhook từ payOS
 router.post('/api/webhook', (req, res) => {
-    // 1. Nhận dữ liệu payOS gửi về
     const webhookData = req.body;
 
     console.log("🔔 Đã nhận Webhook từ payOS:", webhookData);
 
-    // 2. Kiểm tra xem có phải thông báo thanh toán thành công không
-    // Cấu trúc dữ liệu có thể khác nhau tùy phiên bản API, thường nó nằm trong webhookData.data.code
     if (webhookData && webhookData.data && webhookData.data.code === '00') {
-        const orderCode = webhookData.data.orderCode; // Lấy ra mã đơn hàng (chính là orderId của chúng ta)
+        const orderCode = webhookData.data.orderCode; 
 
-        // 3. Cập nhật trạng thái đơn hàng trong database SQLite thành 'Paid'
         const updateSql = `UPDATE Orders SET status = 'Paid' WHERE id = ?`;
         
         db.run(updateSql, [orderCode], function(err) {
@@ -91,11 +82,9 @@ router.post('/api/webhook', (req, res) => {
             }
             
             console.log(`✅ Đã cập nhật đơn hàng ${orderCode} thành công!`);
-            // Bắt buộc phải trả về 200 OK để payOS biết bạn đã nhận tin, nếu không họ sẽ gửi lại liên tục
             return res.json({ success: true }); 
         });
     } else {
-        // Trả về OK ngay cả khi không phải mã '00' để payOS không spam
         res.json({ success: true });
     }
 });
