@@ -7,7 +7,8 @@ router.post("/send-mail", async (req, res) => {
     const { name, email, message } = req.body;
 
     try {
-
+console.log("EMAIL =", process.env.EMAIL);
+console.log("PASSWORD =", process.env.PASSWORD);
         const transporter = nodemailer.createTransport({
 
             service: "gmail",
