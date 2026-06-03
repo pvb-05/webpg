@@ -1,8 +1,11 @@
+require('dotenv').config();
+var createError = require('http-errors');
 var express = require('express');
 var session = require('express-session');
 var path = require('path');
 
 var indexRouter = require('./routes/index');
+var contactRouter = require('./routes/contact');
 var orderRouter = require('./routes/orders');
 
 var app = express();
@@ -33,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // routes setup
 app.use('/', indexRouter);
+app.use('/', contactRouter);
 app.use('/', orderRouter);
 
 module.exports = app;

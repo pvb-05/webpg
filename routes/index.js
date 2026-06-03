@@ -16,10 +16,12 @@ router.get('/register', function(req, res) {
   res.render('register');
 });
 
-router.get('/checkout', function(req, res, next) {
-  res.render('checkout');
+router.get('/logout', function(req, res, next) {
+  req.session.destroy();
+  res.redirect('/');
 });
 
+/* register handler */
 router.post('/register', async function(req, res, next) {
   const username = req.body.username;
   const email = req.body.email;
@@ -40,6 +42,7 @@ router.post('/register', async function(req, res, next) {
   }
 });
 
+/* login handler */
 router.post('/login', function(req, res, next) {
   const username = req.body.username;
   const password = req.body.password;
@@ -72,10 +75,6 @@ router.post('/login', function(req, res, next) {
   });
 });
 
-router.get('/logout', function(req, res, next) {
-  req.session.destroy();
-  res.redirect('/');
-});
 
 router.get('/orders/success', (req, res) => {
     res.render('success');
@@ -101,6 +100,17 @@ router.get('/history', (req, res) => {
         }
         res.render('history', { orders: rows });
     });
+});
+
+router.get('/checkout', function(req, res, next) {
+  res.render('checkout');
+});
+
+router.get('/contact', function(req, res) {
+  res.render('contact');
+});
+router.get('/about', function(req, res) {
+  res.render('about');
 });
 
 module.exports = router;

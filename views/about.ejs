@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body{
+            background:#F8F7F3;
+            color:#2F5D50;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar{
+            background:#F8F7F3;
+            border-bottom:1px solid #dcdcdc;
+        }
+
+        .navbar-brand{
+            color:#2F5D50 !important;
+            font-weight:bold;
+            font-size:28px;
+        }
+
+        .nav-link{
+            color:#2F5D50 !important;
+            font-weight:500;
+        }
+
+        .hero{
+            text-align:center;
+            padding:100px 0 50px;
+        }
+
+        .hero small{
+            letter-spacing:3px;
+            color:#5F8D76;
+        }
+
+        .hero h1{
+            font-size:70px;
+            font-weight:bold;
+            color:#2F5D50;
+            margin-top:15px;
+        }
+
+        .hero p{
+            color:#5F8D76;
+            font-size:20px;
+            max-width:700px;
+            margin:auto;
+        }
+
+        .about-image{
+            border-radius:20px;
+            overflow:hidden;
+            margin-bottom:60px;
+        }
+
+        .section-title{
+            text-align:center;
+            font-weight:bold;
+            color:#2F5D50;
+            margin-bottom:40px;
+        }
+
+        .card{
+            border:none;
+            border-radius:15px;
+            box-shadow:0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .tech-card{
+            transition:0.3s;
+        }
+
+        .tech-card:hover{
+            transform:translateY(-5px);
+        }
+
+        footer{
+            margin-top:80px;
+            background:#2F5D50;
+            color:white;
+            text-align:center;
+            padding:25px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+
+            <a class="navbar-brand" href="/">
+                FlowerPremiu
+            </a>
+
+            <div>
+                <a href="/" class="nav-link d-inline me-3">
+                    Home
+                </a>
+
+                <a href="/about" class="nav-link d-inline me-3">
+                    About
+                </a>
+
+                <a href="/contact" class="nav-link d-inline">
+                    Contact
+                </a>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+
+        <div class="container">
+
+            <small>WHO WE ARE</small>
+
+            <h1>FlowerPremiu</h1>
+
+            <p>
+                We offer high-quality flowers and plants to help make your living space feel fresh and closer to nature.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- Ảnh giới thiệu -->
+    <div class="container">
+
+        <div class="about-image">
+
+            <img
+                src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735"
+                class="img-fluid w-100"
+                alt="Flowers">
+
+        </div>
+
+    </div>
+
+    <!-- Giới thiệu -->
+    <section class="container">
+
+        <h2 class="section-title">
+      
+About the Project
+        </h2>
+
+        <div class="card p-4">
+
+            <p>
+    The FlowerPremiu website was created to provide a platform for showcasing
+        and selling flowers and ornamental plants online.
+            </p>
+
+            <p>
+The system was developed using NodeJS, ExpressJS, and EJS,
+
+supporting users in registering accounts, logging in, and sending contact requests via email.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- Công nghệ -->
+    <section class="container mt-5">
+
+        <h2 class="section-title">
+ 
+Technology Used
+        </h2>
+
+        <div class="row">
+
+            <div class="col-md-3 mb-4">
+                <div class="card tech-card p-4 text-center h-100">
+                    <h4>NodeJS</h4>
+                    <p>Backend Development</p>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-4">
+                <div class="card tech-card p-4 text-center h-100">
+                    <h4>ExpressJS</h4>
+                    <p>Web Framework</p>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-4">
+                <div class="card tech-card p-4 text-center h-100">
+                    <h4>EJS</h4>
+                    <p>Template Engine</p>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-4">
+                <div class="card tech-card p-4 text-center h-100">
+                    <h4>Nodemailer</h4>
+                    <p>Email Service</p>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Chức năng -->
+    <section class="container mt-5">
+
+        <h2 class="section-title">
+            Main Features
+        </h2>
+
+        <div class="card p-4">
+
+            <ul>
+                <li>Account Registration</li>
+                <li>System Login</li>
+                <li>User Session Management</li>
+                <li>Send Contact Requests via Email</li>
+                <li>Success or Failure Notifications</li>
+            </ul>
+
+        </div>
+
+    </section>
+
+    <!-- Thành viên -->
+    <section class="container mt-5">
+
+        <h2 class="section-title">
+            Team Members
+        </h2>
+
+        <div class="row">
+
+            <div class="col-md-4 mb-4">
+                <div class="card p-4 text-center">
+                    <h4>Lê Hồng Phong</h4>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card p-4 text-center">
+                    <h4>Lê Quốc Duy</h4>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card p-4 text-center">
+                    <h4>Phan Văn Bắc</h4>
+                </div>
+            </div>
+              <div class="col-md-4 mb-4">
+                <div class="card p-4 text-center">
+                    <h4>Chu Đức Hiếu</h4>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        © 2025 FlowerPremiu - NodeJS & ExpressJS Project
+    </footer>
+
+</body>
+</html>
