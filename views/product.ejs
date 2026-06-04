@@ -139,8 +139,8 @@
       </div>
 
       <div class="mt-8">
-        <button onclick="buyNow()" class="btn w-full bg-[#7a9d66] border-none text-white hover:bg-[#607e4f] rounded-full uppercase tracking-widest text-sm font-bold h-14 shadow-md">
-          Mua Ngay
+        <button onclick="buyNow('<%= product.id %>')" class="btn w-full bg-[#7a9d66] border-none text-white hover:bg-[#607e4f] rounded-full uppercase tracking-widest text-sm font-bold h-14 shadow-md">
+         Mua Ngay
         </button>
       </div>
 
@@ -335,10 +335,14 @@ function changeQty(delta) {
   inp.value = newVal;
 }
 
-function buyNow() {
+function buyNow(productId) {
   // Lấy giá trị số lượng hiện tại
   const qty = document.getElementById('qtyInput').value;
+  
   alert(`Đang chuyển hướng đến trang thanh toán cho ${qty} sản phẩm...`);
+  
+  // Điều hướng sang trang Checkout kèm theo Mã sản phẩm và Số lượng trên URL
+  window.location.href = `/checkout?id=${productId}&qty=${qty}`;
 }
 </script>
 </body>

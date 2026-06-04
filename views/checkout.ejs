@@ -53,7 +53,9 @@
 
                 <div class="flex justify-between items-center text-xl font-bold">
                     <span>Tổng thanh toán:</span>
-                    <span class="text-success text-2xl">2.000 đ</span>
+                    <span class="text-xl font-bold text-[#16a34a]">
+                        <%= (product.price * quantity).toLocaleString('vi-VN') %> đ
+                    </span>
                 </div>
 
                 <button type="submit" id="submitBtn" class="btn btn-success w-full mt-4 text-white text-lg">
@@ -67,26 +69,37 @@
         document.getElementById('checkoutForm').addEventListener('submit', async function(e) {
             e.preventDefault(); 
 
-            const btn = document.getElementById('submitBtn');
-            btn.innerHTML = '<span class="loading loading-spinner"></span> Đang xử lý...';
-            btn.disabled = true;
+            const btn = document.querySelector('button[type="submit"]');
+            if (btn) {
+                btn.innerHTML = '<span class="loading loading-spinner"></span> Đang xử lý...';
+                btn.disabled = true;
+            }
 
-            // 1. Gom dữ liệu người dùng điền
-            const payload = {
-                customer_name: document.getElementById('customer_name').value,
-                customer_phone: document.getElementById('customer_phone').value,
-                shipping_address: document.getElementById('shipping_address').value,
-                payment_method: document.querySelector('input[name="payment_method"]:checked').value,
-                
-                // Đã sửa thành 2000 VNĐ
-                total: 2000, 
-                items: [
-                    { product_id: 999, quantity: 1, price: 2000 }
-                ]
-            };
+            // 1. Lấy dữ liệu thật từ biến EJS mà Backend truyền sang
+                    const realProductId = Number('<%= product.id %>');
+                    const realQuantity = Number('<%= quantity %>');
+                    const realPrice = Number('<%= product.price %>');
+                    const totalAmount = realPrice * realQuantity;
+
+                    // 2. Gom dữ liệu người dùng điền + Sản phẩm thật
+                    const payload = {
+                        customer_name: document.getElementById('customer_name').value,
+                        customer_phone: document.getElementById('customer_phone').value,
+                        shipping_address: document.getElementById('shipping_address').value,
+                        payment_method: document.querySelector('input[name="payment_method"]:checked').value,
+                        
+                        total: totalAmount, // Truyền tổng tiền thật
+                        items: [
+                            { 
+                                product_id: realProductId,  // Truyền mã hoa thật
+                                quantity: realQuantity,     // Truyền số lượng thật
+                                price: realPrice            // Truyền giá tiền thật
+                            }
+                        ]
+                    };
 
             try {
-                // 2. Bắn dữ liệu xuống API Backend
+                // 3. Bắn dữ liệu xuống API Backend
                 const response = await fetch('/api/orders', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -95,16 +108,15 @@
 
                 const data = await response.json();
 
-                // 3. Xử lý kịch bản sau khi Backend trả lời
+                // 4. Xử lý kịch bản sau khi Backend trả lời
                 if (data.success) {
                     if (payload.payment_method === 'payos' && data.checkoutUrl) {
-                        window.location.href = data.checkoutUrl;
+                        window.location.href = data.checkoutUrl; // Bay sang trang quét QR
                     } else {
-                        alert("🎉 Đặt hàng thành công! Chúng tôi sẽ sớm giao hàng cho bạn.");
-                        window.location.href = "/"; 
+                        window.location.href = "/orders/success"; // Bay sang trang báo thành công
                     }
                 } else {
-                    alert("Lỗi từ máy chủ: " + data.message);
+                    alert("Từ chối tạo đơn: " + (data.message || data.error));
                     resetButton();
                 }
             } catch (error) {
@@ -114,8 +126,10 @@
             }
 
             function resetButton() {
-                btn.innerHTML = 'Xác nhận đặt hàng';
-                btn.disabled = false;
+                if (btn) {
+                    btn.innerHTML = 'Thanh toán';
+                    btn.disabled = false;
+                }
             }
         });
     </script>

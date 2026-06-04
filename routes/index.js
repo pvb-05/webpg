@@ -102,15 +102,35 @@ router.get('/history', (req, res) => {
     });
 });
 
+// Render trang thanh toán (Lấy thông tin từ URL)
 router.get('/checkout', function(req, res, next) {
-  res.render('checkout');
-});
+    // 1. Lấy ID sản phẩm và số lượng từ thanh địa chỉ URL (do nút Mua Ngay truyền sang)
+    const productId = req.query.id;
+    const quantity = req.query.qty || 1; // Nếu không có thì mặc định là 1
 
-router.get('/contact', function(req, res) {
-  res.render('contact');
-});
-router.get('/about', function(req, res) {
-  res.render('about');
+    // 2. Nếu khách tự gõ /checkout mà không có ID, đẩy về trang chủ
+    if (!productId) {
+        return res.redirect('/');
+    }
+
+    // 3. Truy vấn Database để lấy giá tiền và thông tin hoa thật
+    const sql = "SELECT * FROM Products WHERE id = ?";
+    db.get(sql, [productId], (err, product) => {
+        if (err) {
+            console.error("Lỗi Database:", err.message);
+            return res.status(500).send("Lỗi máy chủ!");
+        }
+
+        if (!product) {
+            return res.send("Lỗi: Sản phẩm không tồn tại!");
+        }
+
+        // 4. Tìm thấy thành công -> Truyền dữ liệu sang cho checkout.ejs hiển thị
+        res.render('checkout', { 
+            product: product, 
+            quantity: quantity 
+        });
+    });
 });
 
 // Render trang Gallery
