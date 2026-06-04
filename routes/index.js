@@ -113,4 +113,14 @@ router.get('/about', function(req, res) {
   res.render('about');
 });
 
+// Render trang Gallery
+router.get('/gallery', function(req, res, next) {
+  res.render('gallery'); 
+});
+
+// Render trang chi tiết sản phẩm
+router.get('/product', function(req, res, next) {
+  res.render('product');
+});
+
 module.exports = router;
