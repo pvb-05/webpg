@@ -114,13 +114,54 @@ router.get('/about', function(req, res) {
 });
 
 // Render trang Gallery
-router.get('/gallery', function(req, res, next) {
-  res.render('gallery'); 
+router.get('/gallery', (req, res) => {
+  const sql = `
+    SELECT p.*, c.name as category_slug 
+    FROM Products p 
+    JOIN Categories c ON p.category_id = c.id
+  `;
+  db.all(sql, [], (err, rows) => {
+    if (err) return res.status(500).send("Lỗi server");
+    res.render('gallery', { products: rows });
+  });
 });
 
 // Render trang chi tiết sản phẩm
-router.get('/product', function(req, res, next) {
-  res.render('product');
+router.get('/product', (req, res) => {
+  const productId = req.query.id; // Lấy ID từ URL (ví dụ: ?id=1)
+
+  if (!productId) {
+    return res.redirect('/gallery');
+  }
+
+  // Truy vấn lấy thông tin sản phẩm
+  const sql = `
+    SELECT p.*, c.name as category_slug 
+    FROM Products p 
+    JOIN Categories c ON p.category_id = c.id 
+    WHERE p.id = ?
+  `;
+
+  db.get(sql, [productId], (err, product) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send("Lỗi server");
+    }
+    if (!product) {
+      return res.status(404).send("Không tìm thấy sản phẩm");
+    }
+
+    // Truy vấn lấy thêm 4 sản phẩm liên quan (cùng category)
+    const relatedSql = `SELECT * FROM Products WHERE category_id = ? AND id != ? LIMIT 4`;
+    db.all(relatedSql, [product.category_id, productId], (err, relatedProducts) => {
+      
+      // Truyền dữ liệu sang EJS
+      res.render('product', { 
+        product: product, 
+        relatedProducts: relatedProducts || []
+      });
+    });
+  });
 });
 
 module.exports = router;
