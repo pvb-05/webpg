@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chi tiết sản phẩm — Our Blossoms</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #faf7f2;
+      --warm-white: #f5f0e8;
+      --sage: #8a9e7a;
+      --sage-light: #b5c9a1;
+      --moss: #4a5e3a;
+      --blush: #e8b4b8;
+      --terracotta: #c07860;
+      --charcoal: #2a2a28;
+      --ink: #1a1a18;
+      --muted: #8a8680;
+      --border: #ddd8d0;
+      --red: #d0453a;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--cream);
+      color: var(--charcoal);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem; height: 64px;
+      background: rgba(250,247,242,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; font-weight: 400;
+      letter-spacing: 0.08em; color: var(--ink); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--moss); }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      max-width: 1200px; margin: 1.5rem auto; padding: 0 2rem;
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem; color: var(--muted);
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--moss); }
+    .breadcrumb span { color: var(--charcoal); }
+    .bc-sep { opacity: 0.4; }
+
+    /* ── MAIN LAYOUT ── */
+    .product-page {
+      max-width: 1200px; margin: 0 auto 4rem;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 520px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* ── LEFT: IMAGE COLUMN ── */
+    .image-col { position: sticky; top: 80px; }
+
+    .main-image-wrap {
+      width: 100%; aspect-ratio: 1/1;
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9rem;
+      overflow: hidden; position: relative;
+      cursor: zoom-in;
+    }
+    #mainPhoto{
+     width:100%;
+     height:100%;
+     object-fit:cover;
+     display:block;
+    }
+    .main-image-wrap:hover .zoom-hint { opacity: 1; }
+    .zoom-hint {
+      position: absolute; bottom: 1rem; right: 1rem;
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); opacity: 0; transition: opacity 0.3s;
+      background: rgba(250,247,242,0.85); padding: 0.35rem 0.7rem;
+      border: 1px solid var(--border);
+    }
+
+    .thumbnails {
+      display: flex; gap: 0.75rem; margin-top: 1rem;
+      overflow-x: auto; padding-bottom: 0.25rem;
+    }
+    .thumb {
+      flex: 0 0 80px; height: 80px;
+      border: 1.5px solid var(--border);
+      background: var(--warm-white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .thumb img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .thumb:hover, .thumb.active { border-color: var(--moss); }
+
+    .share-row {
+      margin-top: 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+      padding-top: 1.5rem; border-top: 1px solid var(--border);
+    }
+    .share-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+    .share-icons { display: flex; gap: 0.5rem; }
+    .share-icon {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; cursor: pointer; transition: background 0.2s;
+      color: var(--muted); text-decoration: none;
+    }
+    .share-icon:hover { background: var(--warm-white); color: var(--charcoal); }
+
+    .like-btn {
+      margin-left: auto;
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem; color: var(--muted); cursor: pointer;
+      background: none; border: 1px solid var(--border);
+      padding: 0.4rem 0.9rem; transition: all 0.2s;
+    }
+    .like-btn:hover { border-color: var(--blush); color: var(--terracotta); }
+    .like-btn.liked { border-color: var(--blush); color: var(--terracotta); background: #fdf5f5; }
+
+    /* ── RIGHT: INFO COLUMN ── */
+    .info-col {}
+
+    /* Tag badge */
+    .product-badge {
+      display: inline-block;
+      background: var(--red); color: #fff;
+      font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0.25rem 0.6rem; margin-bottom: 0.8rem;
+    }
+
+    .product-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.85rem; font-weight: 300; line-height: 1.25;
+      color: var(--ink); margin-bottom: 0.4rem;
+    }
+    .product-latin {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 0.9rem; color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    /* Rating row */
+    .rating-row {
+      display: flex; align-items: center; gap: 1.5rem;
+      padding-bottom: 1rem; border-bottom: 1px solid var(--border);
+      margin-bottom: 1.25rem; font-size: 0.78rem;
+    }
+    .stars { color: #f5a623; font-size: 0.9rem; }
+    .rating-num { font-weight: 500; color: var(--terracotta); }
+    .review-count { color: var(--muted); }
+    .sold-count { color: var(--muted); padding-left: 1.5rem; border-left: 1px solid var(--border); }
+
+    /* Price box */
+    .price-box {
+      background: var(--warm-white);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      border-left: 3px solid var(--terracotta);
+    }
+    .price-main {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; color: var(--terracotta); font-weight: 400;
+      line-height: 1;
+    }
+    .price-original {
+      font-size: 0.85rem; color: var(--muted);
+      text-decoration: line-through; margin-left: 0.75rem;
+    }
+    .price-discount {
+      font-size: 0.7rem; font-weight: 500;
+      background: var(--terracotta); color: #fff;
+      padding: 0.2rem 0.5rem; margin-left: 0.5rem;
+    }
+    .price-row { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.25rem; }
+
+    /* Info rows */
+    .info-row {
+      display: grid; grid-template-columns: 140px 1fr;
+      gap: 0.5rem 1rem; align-items: start;
+      padding: 1rem 0; border-bottom: 1px solid var(--border);
+      font-size: 0.8rem;
+    }
+    .info-row:last-of-type { border-bottom: none; }
+    .row-label { color: var(--muted); font-size: 0.72rem; padding-top: 0.1rem; }
+    .row-value { color: var(--charcoal); }
+
+    /* Voucher chips */
+    .voucher-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .voucher-chip {
+      border: 1px solid var(--terracotta);
+      color: var(--terracotta);
+      font-size: 0.65rem; padding: 0.25rem 0.65rem;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .voucher-chip:hover { background: #fff5f3; }
+    .voucher-more { color: var(--sage); font-size: 0.65rem; display: flex; align-items: center; gap: 0.3rem; cursor: pointer; }
+
+    /* Combo tag */
+    .combo-tag {
+      background: #fff5f3; border: 1px solid var(--blush);
+      color: var(--terracotta); font-size: 0.7rem;
+      padding: 0.3rem 0.75rem; display: inline-block;
+    }
+
+    /* Shipping */
+    .ship-info { display: flex; flex-direction: column; gap: 0.3rem; }
+    .ship-line { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; }
+    .ship-line .ship-icon { color: var(--sage); }
+    .ship-free { font-weight: 500; color: var(--charcoal); }
+    .ship-voucher { font-size: 0.7rem; color: var(--muted); }
+
+    /* Trust badge */
+    .trust-badge {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.75rem; color: var(--charcoal);
+    }
+    .trust-icon { color: var(--moss); font-size: 1rem; }
+    .trust-link { color: var(--moss); cursor: pointer; }
+
+    /* Color selector */
+    .color-opts { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .color-opt {
+      display: flex; align-items: center; gap: 0.5rem;
+      border: 1.5px solid var(--border);
+      padding: 0.35rem 0.9rem; cursor: pointer;
+      font-size: 0.75rem; transition: border-color 0.2s;
+    }
+    .color-opt:hover { border-color: var(--moss); }
+    .color-opt.active { border-color: var(--moss); background: #f5f8f4; }
+    .color-dot {
+      width: 14px; height: 14px; border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.15);
+    }
+
+    /* Quantity */
+    .qty-ctrl {
+      display: flex; align-items: center; gap: 0;
+    }
+    .qty-btn {
+      width: 36px; height: 36px;
+      border: 1px solid var(--border);
+      background: var(--warm-white);
+      cursor: pointer; font-size: 1.1rem; color: var(--charcoal);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .qty-btn:hover { background: var(--border); }
+    .qty-input {
+      width: 52px; height: 36px;
+      border: 1px solid var(--border); border-left: none; border-right: none;
+      text-align: center; font-family: 'Jost', sans-serif;
+      font-size: 0.85rem; background: #fff; color: var(--charcoal);
+      outline: none;
+    }
+    .qty-stock { font-size: 0.7rem; color: var(--muted); margin-left: 1rem; align-self: center; }
+
+    /* CTA buttons */
+    .cta-row {
+      display: flex; gap: 1rem; margin-top: 2rem;
+    }
+    .btn-cart {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      border: 1.5px solid var(--moss);
+      background: transparent; color: var(--moss);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.25s;
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+    }
+    .btn-cart:hover { background: var(--moss); color: #fff; }
+    .btn-buy {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      border: none; background: var(--terracotta); color: #fff;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.25s;
+    }
+    .btn-buy:hover { background: #a8634e; }
+
+    /* ── TABS ── */
+    .tabs-section {
+      max-width: 1200px; margin: 3rem auto 0;
+      padding: 0 2rem 4rem;
+    }
+    .tabs-nav {
+      display: flex; border-bottom: 2px solid var(--border);
+      margin-bottom: 2rem; gap: 0;
+    }
+    .tab-btn {
+      padding: 0.75rem 2rem;
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); cursor: pointer; background: none; border: none;
+      border-bottom: 2px solid transparent; margin-bottom: -2px;
+      transition: all 0.2s; font-family: 'Jost', sans-serif;
+    }
+    .tab-btn:hover { color: var(--charcoal); }
+    .tab-btn.active { color: var(--moss); border-bottom-color: var(--moss); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Description tab */
+    .desc-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+      align-items: start;
+    }
+    .desc-emoji-block {
+      aspect-ratio: 1; background: var(--warm-white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 8rem; border: 1px solid var(--border);
+    }
+    .desc-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 300; margin-bottom: 1rem; color: var(--ink);
+    }
+    .desc-body {
+      font-size: 0.82rem; line-height: 2; color: #555550;
+      margin-bottom: 1.5rem;
+    }
+    .spec-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    .spec-table tr { border-bottom: 1px solid var(--border); }
+    .spec-table td {
+      padding: 0.7rem 1rem; font-size: 0.78rem;
+    }
+    .spec-table td:first-child { color: var(--muted); width: 42%; }
+    .spec-table td:last-child { color: var(--charcoal); font-weight: 400; }
+    .spec-table tr:nth-child(even) td { background: var(--warm-white); }
+
+    /* Care tips */
+    .care-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    }
+    .care-card {
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      background: var(--warm-white);
+    }
+    .care-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+    .care-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; margin-bottom: 0.5rem; color: var(--ink);
+    }
+    .care-text { font-size: 0.75rem; line-height: 1.8; color: var(--muted); }
+
+    /* Reviews tab */
+    .review-summary {
+      display: flex; gap: 3rem; align-items: center;
+      padding: 2rem; background: var(--warm-white);
+      border: 1px solid var(--border); margin-bottom: 2rem;
+    }
+    .review-big-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem; color: var(--terracotta); line-height: 1;
+    }
+    .review-stars-big { font-size: 1.4rem; color: #f5a623; margin: 0.3rem 0; }
+    .review-total { font-size: 0.72rem; color: var(--muted); }
+    .review-bars { flex: 1; display: flex; flex-direction: column; gap: 0.4rem; }
+    .bar-row { display: flex; align-items: center; gap: 0.75rem; font-size: 0.72rem; color: var(--muted); }
+    .bar-track { flex: 1; height: 6px; background: var(--border); }
+    .bar-fill { height: 100%; background: var(--sage); }
+
+    .review-list { display: flex; flex-direction: column; gap: 1.5rem; }
+    .review-item {
+      padding: 1.5rem; border: 1px solid var(--border);
+      background: #fff;
+    }
+    .review-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; }
+    .review-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--sage-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; color: var(--moss); font-weight: 500;
+    }
+    .review-meta { flex: 1; }
+    .review-author { font-size: 0.8rem; font-weight: 500; color: var(--charcoal); }
+    .review-date { font-size: 0.65rem; color: var(--muted); }
+    .review-stars { color: #f5a623; font-size: 0.8rem; }
+    .review-text { font-size: 0.8rem; line-height: 1.8; color: #555550; }
+    .review-variant { font-size: 0.65rem; color: var(--muted); margin-top: 0.5rem; }
+
+    /* ── RELATED ── */
+    .related-section {
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 2rem 4rem;
+    }
+    .related-header {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 300;
+      margin-bottom: 1.5rem; color: var(--ink);
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .related-header::before {
+      content: ''; display: block; width: 32px; height: 1px; background: var(--sage);
+    }
+    .related-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem;
+    }
+    .related-card {
+      border: 1px solid var(--border); background: var(--warm-white);
+      cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;
+      text-decoration: none; color: inherit;
+      display: block;
+    }
+    .related-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+    .related-thumb{
+    aspect-ratio:1;
+    overflow:hidden;
+    }
+
+    .related-thumb img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    }
+    .related-info { padding: 1rem; border-top: 1px solid var(--border); }
+    .related-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; margin-bottom: 0.25rem; color: var(--ink);
+    }
+    .related-price { font-size: 0.75rem; color: var(--terracotta); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); padding: 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 300; color: #fff;
+    }
+    .footer-copy { font-size: 0.62rem; color: rgba(255,255,255,0.25); }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .product-page { grid-template-columns: 1fr; }
+      .image-col { position: static; }
+      .desc-grid { grid-template-columns: 1fr; }
+      .care-grid { grid-template-columns: 1fr 1fr; }
+      .related-grid { grid-template-columns: repeat(2, 1fr); }
+      nav { padding: 0 1.5rem; }
+    }
+    @media (max-width: 560px) {
+      .cta-row { flex-direction: column; }
+      .care-grid { grid-template-columns: 1fr; }
+      .related-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Page load animation */
+    .page-enter {
+      opacity: 0; transform: translateY(16px);
+      animation: pageIn 0.5s ease forwards;
+    }
+    @keyframes pageIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a class="nav-logo" href="our_blossoms.html">Flower Premiu</a>
+  <ul class="nav-links">
+    <li><a href="our_blossoms.html#gallery">Gallery</a></li>
+    <li><a href="our_blossoms.html#services">About</a></li>
+    <li><a href="our_blossoms.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── BREADCRUMB ── -->
+<nav class="breadcrumb" id="breadcrumb">
+  <a href="our_blossoms.html">Flower Premiu</a>
+  <span class="bc-sep">›</span>
+  <a href="our_blossoms.html#gallery">Gallery</a>
+  <span class="bc-sep">›</span>
+  <span id="bcName">Đang tải...</span>
+</nav>
+
+<!-- ── PRODUCT PAGE ── -->
+<div class="product-page page-enter" id="productPage">
+
+  <!-- LEFT -->
+  <div class="image-col">
+    <div class="main-image-wrap" id="mainImg">
+      <img id="mainPhoto" src="" alt="Ảnh hoa">
+      <div class="zoom-hint">Xem chi tiết</div>
+    </div>
+
+    <div class="thumbnails" id="thumbs"></div>
+
+    <div class="share-row">
+      <span class="share-label">Chia sẻ:</span>
+      <div class="share-icons">
+        <a class="share-icon" href="#" title="Facebook">f</a>
+        <a class="share-icon" href="#" title="Messenger">m</a>
+        <a class="share-icon" href="#" title="Pinterest">p</a>
+        <a class="share-icon" href="#" title="Twitter / X">𝕏</a>
+      </div>
+      <button class="like-btn" id="likeBtn" onclick="toggleLike()">
+        <span id="likeHeart">♡</span>
+        <span id="likeCount">468</span> Đã thích
+      </button>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="info-col">
+    <div class="product-badge" id="badge">Yêu thích</div>
+    <h1 class="product-name" id="prodName"></h1>
+    <p class="product-latin" id="prodLatin"></p>
+
+    <div class="rating-row">
+      <span class="rating-num" id="ratingNum">4.8</span>
+      <span class="stars" id="stars">★★★★★</span>
+      <span class="review-count" id="reviewCount">23,6k Đánh Giá</span>
+      <span class="sold-count" id="soldCount"></span>
+    </div>
+
+    <div class="price-box">
+      <div class="price-row">
+        <span class="price-main" id="priceMain"></span>
+        <span class="price-original" id="priceOrig"></span>
+        <span class="price-discount" id="priceDisc"></span>
+      </div>
+    </div>
+
+    <!-- Voucher -->
+    <div class="info-row">
+      <div class="row-label">Mã Giảm Giá</div>
+      <div class="row-value">
+        <div class="voucher-chips">
+          <div class="voucher-chip">Giảm 3%</div>
+          <div class="voucher-chip">Giảm 5%</div>
+          <div class="voucher-chip">Giảm 8%</div>
+          <div class="voucher-more">Xem tất cả ›</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Combo -->
+    <div class="info-row">
+      <div class="row-label">Combo Khuyến Mãi</div>
+      <div class="row-value"><span class="combo-tag">Mua 2 & giảm 5%</span></div>
+    </div>
+
+    <!-- Shipping -->
+    <div class="info-row">
+      <div class="row-label">Vận Chuyển</div>
+      <div class="row-value">
+        <div class="ship-info">
+          <div class="ship-line">
+            <span class="ship-icon">🚚</span>
+            <span>Nhận trong <strong>9 Th06</strong> &nbsp;›</span>
+          </div>
+          <div class="ship-line">
+            <span class="ship-free">Phí ship 0đ</span>
+          </div>
+          <div class="ship-voucher">Tặng Voucher 15,000đ nếu đơn giao sau thời gian trên.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trust -->
+    <div class="info-row">
+      <div class="row-label">An Tâm Mua Sắm</div>
+      <div class="row-value">
+        <div class="trust-badge">
+          <span class="trust-icon">🛡</span>
+          <span>Our Blossoms Xử Lý · <span class="trust-link">Trả hàng miễn phí 15 ngày ›</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color -->
+    <div class="info-row">
+      <div class="row-label">Màu Sắc</div>
+      <div class="row-value">
+        <div class="color-opts" id="colorOpts"></div>
+      </div>
+    </div>
+
+    <!-- Quantity -->
+    <div class="info-row">
+      <div class="row-label">Số Lượng</div>
+      <div class="row-value" style="display:flex;align-items:center;">
+        <div class="qty-ctrl">
+          <button class="qty-btn" onclick="changeQty(-1)">−</button>
+          <input class="qty-input" type="number" value="1" min="1" id="qtyInput" />
+          <button class="qty-btn" onclick="changeQty(1)">+</button>
+        </div>
+        <span class="qty-stock" id="qtyStock">Còn 248 sản phẩm</span>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-row">
+      <button class="btn-cart" onclick="addCart()">🛒 Thêm Vào Giỏ Hàng</button>
+      <button class="btn-buy" onclick="buyNow()">Mua Ngay</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── TABS ── -->
+<div class="tabs-section">
+  <div class="tabs-nav">
+    <button class="tab-btn active" onclick="switchTab('desc',this)">Mô Tả</button>
+    <button class="tab-btn" onclick="switchTab('care',this)">Hướng Dẫn Chăm Sóc</button>
+    <button class="tab-btn" onclick="switchTab('specs',this)">Thông Số</button>
+    <button class="tab-btn" onclick="switchTab('reviews',this)">Đánh Giá</button>
+  </div>
+
+  <!-- DESC -->
+  <div class="tab-panel active" id="tab-desc">
+    <div class="desc-grid">
+      <div class="desc-emoji-block" id="descEmoji"></div>
+      <div>
+        <h3 class="desc-heading" id="descTitle"></h3>
+        <p class="desc-body" id="descBody"></p>
+        <div id="descTags" style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARE -->
+  <div class="tab-panel" id="tab-care">
+    <div class="care-grid">
+      <div class="care-card">
+        <div class="care-icon">💧</div>
+        <div class="care-title">Tưới nước</div>
+        <div class="care-text">Cắt chéo cuống hoa 2–3 cm dưới nước trước khi cắm. Thay nước bình mỗi 2 ngày, giữ mức nước ở 1/3 bình để tránh thối cuống.</div>
+      </div>
+      <div class="care-card">
+        <div class="care-icon">🌡️</div>
+        <div class="care-title">Nhiệt độ</div>
+        <div class="care-text">Đặt hoa ở nơi thoáng mát, tránh ánh nắng trực tiếp và luồng gió điều hòa lạnh. Nhiệt độ lý tưởng 18–22°C giúp hoa tươi lâu hơn 30%.</div>
+      </div>
+      <div class="care-card">
+        <div class="care-icon">✂️</div>
+        <div class="care-title">Cắt tỉa</div>
+        <div class="care-text">Loại bỏ lá tiếp xúc với nước, tỉa bỏ cánh hoa héo để hoa còn lại tươi hơn. Cắt cuống mỗi 3 ngày một lần bằng kéo sắc.</div>
+      </div>
+      <div class="care-card">
+        <div class="care-icon">🧪</div>
+        <div class="care-title">Dinh dưỡng</div>
+        <div class="care-text">Thêm 1 muỗng cà phê đường + vài giọt nước chanh vào nước bình để làm chậm vi khuẩn. Hoặc sử dụng gói dinh dưỡng đính kèm.</div>
+      </div>
+      <div class="care-card">
+        <div class="care-icon">📦</div>
+        <div class="care-title">Khi nhận hàng</div>
+        <div class="care-text">Mở gói ngay khi nhận, không để hoa trong hộp quá 2 giờ. Ngâm cuống trong nước ấm 15 phút trước khi cắm bình để hoa hút nước tốt hơn.</div>
+      </div>
+      <div class="care-card">
+        <div class="care-icon">🌿</div>
+        <div class="care-title">Sau khi tàn</div>
+        <div class="care-text">Có thể sấy khô nhiều loại hoa để làm hoa khô trang trí. Treo ngược bó hoa ở nơi khô thoáng trong 2–3 tuần để bảo quản hình dáng và màu sắc.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPECS -->
+  <div class="tab-panel" id="tab-specs">
+    <table class="spec-table" id="specTable"></table>
+  </div>
+
+  <!-- REVIEWS -->
+  <div class="tab-panel" id="tab-reviews">
+    <div class="review-summary">
+      <div>
+        <div class="review-big-num">4.8</div>
+        <div class="review-stars-big">★★★★★</div>
+        <div class="review-total">trên 5 (23,641 đánh giá)</div>
+      </div>
+      <div class="review-bars">
+        <div class="bar-row"><span>5★</span><div class="bar-track"><div class="bar-fill" style="width:78%"></div></div><span>78%</span></div>
+        <div class="bar-row"><span>4★</span><div class="bar-track"><div class="bar-fill" style="width:14%;background:#b5c9a1"></div></div><span>14%</span></div>
+        <div class="bar-row"><span>3★</span><div class="bar-track"><div class="bar-fill" style="width:5%;background:#ddd8d0"></div></div><span>5%</span></div>
+        <div class="bar-row"><span>2★</span><div class="bar-track"><div class="bar-fill" style="width:2%;background:#ddd8d0"></div></div><span>2%</span></div>
+        <div class="bar-row"><span>1★</span><div class="bar-track"><div class="bar-fill" style="width:1%;background:#ddd8d0"></div></div><span>1%</span></div>
+      </div>
+    </div>
+    <div class="review-list" id="reviewList"></div>
+  </div>
+</div>
+
+<!-- ── RELATED ── -->
+<div class="related-section">
+  <h2 class="related-header">Sản phẩm liên quan</h2>
+  <div class="related-grid" id="relatedGrid"></div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div>
+    <div class="footer-brand">Flower Premiu</div>
+    <div style="font-size:0.65rem;color:rgba(255,255,255,0.25);margin-top:0.3rem">Floral Studio · Hanoi, Vietnam</div>
+  </div>
+  <span class="footer-copy">© 2026 Flower Premiu. All rights reserved.</span>
+</footer>
+
+<script>
+/* ── DATA ── */
+const flowers = [
+  {
+    id: 0,
+    images: [
+      'images/romantic/baby_breath/baby_breath_2.webp',
+      'images/romantic/baby_breath/baby_breath.webp',
+      'images/romantic/baby_breath/baby_breath_1.webp',
+      'images/romantic/baby_breath/baby_breath_3.webp',
+
+    ],
+    tag: 'Bộ sưu tập nổi bật', name: 'Hoa Babybreath', latin: 'Gypsophila',
+    desc: 'Hoa baby trắng tinh khôi — biểu tượng của sự thuần khiết và tình yêu vĩnh cửu. Bó hoa mang lại cảm giác nhẹ nhàng, bồng bềnh như những áng mây đầu xuân.',
+    tags:['Nhiệt đới','Tươi sáng','Tặng quà','Văn phòng'],
+    colors:[{name:'Trắng',dot:'#ffffff'},{name:'Vàng cam',dot:'#f5a023'}],
+    price:'250,000₫',
+    sold:'1,240 đã bán', stock: 15,
+    specs:[
+      ['Loài hoa','Babybreath'],['Xuất xứ','Đà Lạt, Việt Nam'],
+      ['Thời gian giữ hoa','7–10 ngày'],['Mùa vụ','Quanh năm'],
+      ['Kích thước bó','S (5 bông) / M (9 bông) / L (15 bông)'],
+      ['Chiều cao bó','40–65 cm'],['Bao bì','Giấy kraft + ribbon'],
+      ['Phù hợp dịp','Sinh nhật, khai trương, tặng thầy cô'],
+    ],
+    reviews:[
+      {name:'Nguyễn Thảo M.',date:'28 Th05 2026',stars:5,text:'Hoa rất tươi và đẹp, cánh hoa dày đều nhau. Mình đặt buổi sáng, chiều đã nhận được, đóng gói cẩn thận không bị dập. Sẽ đặt lại!',variant:'Màu: Vàng thuần · Size L'},
+      {name:'Trần Minh K.',date:'15 Th05 2026',stars:5,text:'Tặng cho mẹ nhân ngày 20/10, mẹ rất thích. Hoa giữ tươi hơn 10 ngày sau khi tưới đúng cách theo hướng dẫn shop. Highly recommend 💛',variant:'Màu: Vàng cam · Size M'},
+      {name:'Lê Bảo T.',date:'02 Th05 2026',stars:4,text:'Hoa đẹp, đúng màu như ảnh. Chỉ trừ 1 sao vì ship hơi lâu do hôm đó mưa. Shop có nhắn tin thông báo nên cũng ổn.',variant:'Màu: Vàng thuần · Size S'},
+    ]
+  },
+  {
+    id: 1,
+    images: [
+    'images/romantic/peony_peach/peony_peach.webp',
+    'images/romantic/peony_peach/peony_peach_1.webp',
+    
+    ],
+    tag: 'Bestseller', name: 'Hoa Mẫu Đơn Đào', latin: 'Paeonia lactiflora',
+    desc: 'Mẫu đơn hồng đào kiêu sa và quý phái. Từng lớp cánh hoa mở bung nhẹ nhàng tỏa hương thơm ngọt ngào, là món quà hoàn hảo cho những dịp trọng đại.',
+    tags:['Lãng mạn','Sinh nhật','Kỷ niệm','Quà tặng cao cấp'],
+    colors:[{name:'Hồng nhạt',dot:'#f7c5d0'},{name:'Trắng',dot:'#f5f0f0'}],
+    price:'680,000₫',
+    sold:'892 đã bán', stock: 8,
+    specs:[
+      ['Loài hoa','Anh đào Nhật (Prunus serrulata)'],['Xuất xứ','Nhập khẩu Nhật Bản'],
+      ['Thời gian giữ hoa','5–7 ngày'],['Mùa vụ','Tháng 1–4'],
+      ['Kích thước bó','M (3 cành) / L (5 cành)'],['Chiều cao','50–70 cm'],
+      ['Bao bì','Hộp cao cấp + giấy lụa'],['Phù hợp dịp','Kỷ niệm, Valentine, quà sếp'],
+    ],
+    reviews:[
+      {name:'Phạm Thu H.',date:'10 Th04 2026',stars:5,text:'Hoa anh đào đẹp không khác gì ảnh chụp ở Nhật 😭 Mình mua làm background chụp ảnh, cả phòng ai cũng trầm trồ. Sẽ đặt thêm!',variant:'Màu: Hồng nhạt · Size L'},
+      {name:'Hoàng Anh V.',date:'28 Th03 2026',stars:5,text:'Tặng bạn gái, cô ấy siêu thích luôn. Cành hoa dài, hoa nở đều, thơm nhẹ dịu dàng. Xứng đáng với giá tiền.',variant:'Màu: Hồng nhạt · Size M'},
+    ]
+  },
+  {
+    id: 2,
+      images:[
+      'images/romantic/peony_pink/peony_pink.webp',
+      'images/romantic/peony_pink/peony_pink_1.webp',
+      
+      ],
+      tag: 'Phong cách tối giản', name: 'Hoa Hồng Mẫu Đơn', latin: 'Peony Rose',
+      desc: 'Sự kết hợp hoàn hảo giữa nét lãng mạn quyến rũ của hoa hồng và độ dày cánh xếp tầng của mẫu đơn, mang sắc hồng dịu dàng đắm thắm.',
+    tags:['Tối giản','Thiên nhiên','Nội thất','Bền vững'],
+    colors:[{name:'Xanh đậm',dot:'#4a6e3a'},{name:'Xanh nhạt',dot:'#8db880'}],
+    price:'680,000₫',
+    sold:'2,108 đã bán', stock: 12,
+    specs:[
+      ['Thành phần','Bạch đàn, dương xỉ, cỏ đồng nội'],['Xuất xứ','Đà Lạt, Việt Nam'],
+      ['Thời gian giữ','14–21 ngày'],['Mùa vụ','Quanh năm'],
+      ['Kích thước','S / M / L / XL'],['Phong cách','Scandinavian, Japandi, Boho'],
+      ['Bao bì','Giấy báo vintage + dây thừng'],['Dịp phù hợp','Khánh thành, trang trí nhà'],
+    ],
+    reviews:[
+      {name:'Mai Linh T.',date:'01 Th06 2026',stars:5,text:'Đặt để trang trí góc làm việc tại nhà, hoa lá tươi xanh hơn tưởng tượng nhiều. Giữ tươi gần 3 tuần, cực kỳ đáng tiền!',variant:'Màu: Xanh đậm · Size M'},
+      {name:'Bùi Quốc D.',date:'20 Th05 2026',stars:4,text:'Đẹp, phù hợp với phòng khách tông trắng của mình. Mùi thơm dịu tự nhiên từ lá bạch đàn rất dễ chịu.',variant:'Màu: Xanh nhạt · Size L'},
+    ]
+  },
+  {
+    id: 3,
+      images:[
+      'images/romantic/rose_orange/rose_orange.webp',
+      'images/romantic/rose_orange/rose_orange_1.webp',
+      'images/romantic/rose_orange/rose_orange_2.webp',
+      'images/romantic/rose_orange/rose_orange_3.webp',
+      ],
+      tag: 'Hoa hồng thượng hạng', name: 'Hoa Hồng Cam', latin: 'Rosa hybrida',
+      desc: 'Sắc cam ấm áp tươi mới mang năng lượng tích cực và sự đam mê độc đáo. Thích hợp để làm mới không gian làm việc hoặc dành tặng tri kỷ.',
+    tags:['Lãng mạn','Valentine','Cưới hỏi','Hữu cơ'],
+    colors:[{name:'Đỏ nhung',dot:'#c0392b'},{name:'Hồng pastel',dot:'#f4a0a8'},{name:'Trắng kem',dot:'#f9f0e0'}],
+    price:'350,000₫',
+    sold:'3,890 đã bán', stock: 14,
+    specs:[
+      ['Loài hoa','Hoa hồng vườn (Rosa hybrida)'],['Xuất xứ','Đà Lạt hữu cơ'],
+      ['Thời gian giữ','10–14 ngày'],['Mùa vụ','Quanh năm'],
+      ['Kích thước bó','S (6 bông) / M (12 bông) / L (24 bông) / XL (48 bông)'],
+      ['Hương thơm','Ngọt, nồng nhẹ'],['Bao bì','Hộp nhựa mica + dải satin'],
+      ['Chứng nhận','Organic — không hóa chất'],
+    ],
+    reviews:[
+      {name:'Ngọc Anh P.',date:'14 Th02 2026',stars:5,text:'Đặt 48 bông tặng chồng dịp Valentine 🌹 Chất lượng xuất sắc, hoa thơm ngây ngất, màu đỏ đẹp như nhung. Năm sau chắc chắn đặt lại!',variant:'Màu: Đỏ nhung · Size XL'},
+      {name:'Vũ Thanh L.',date:'10 Th01 2026',stars:5,text:'Hoa hồng hữu cơ thật sự khác biệt, cánh hoa dày và thơm hơn hoa thường rất nhiều. Tươi được 2 tuần, cực đỉnh!',variant:'Màu: Hồng pastel · Size M'},
+    ]
+  },
+  {
+    id: 4,
+      images:[
+      'images/fresh/sunflower/sunflower.webp',
+      'images/fresh/sunflower/sunflower_1.webp',
+      'images/fresh/sunflower/sunflower_2.webp',
+      'images/fresh/sunflower/sunflower_3.webp',
+      ],
+      tag: 'Bó hỗn hợp', name: 'Hoa Hướng Dương', latin: 'Helianthus annuus',
+      desc: 'Hướng dương rực rỡ luôn hướng về phía mặt trời, mang theo thông điệp về niềm tin, hy vọng tươi sáng và sự kiên định vững vàng.',
+    tags:['Nghệ thuật','Độc đáo','Tặng bạn bè','Chụp ảnh'],
+    colors:[{name:'Tone mát',dot:'#7ab8d8'},{name:'Tone ấm',dot:'#d8a07a'}],
+    price:'150,000₫',
+    sold:'678 đã bán', stock: 25,
+    specs:[
+      ['Thành phần','Hỗn hợp hoa theo mùa'],['Xuất xứ','Tổng hợp trong & ngoài nước'],
+      ['Thời gian giữ','7–12 ngày'],['Mùa vụ','Theo mùa'],
+      ['Kích thước','M / L'],['Phong cách','Studio, Artistic, Editorial'],
+      ['Lưu ý','Mỗi bó khác nhau — không hoàn toàn giống ảnh'],['Dịp phù hợp','Chụp ảnh, tặng bạn bè sáng tạo'],
+    ],
+    reviews:[
+      {name:'Đỗ Khánh V.',date:'25 Th05 2026',stars:5,text:'Bó hoa nhận được khác hẳn những bó hoa bình thường, rất nghệ và độc. Chụp ảnh lên đẹp mê mẩn. Sẽ đặt lại để làm prop chụp ảnh thường xuyên!',variant:'Tone mát · Size L'},
+    ]
+  },
+  {
+    id: 5,
+      images:[
+      'images/romantic/tulip_pink/tulip_pink.webp',
+      'images/romantic/tulip_pink/tulip_pink_1.webp',
+      
+      ],
+      tag: 'Hoa đồng nội', name: 'Hoa Tulip Hồng', latin: 'Tulipa',
+      desc: 'Tulip hồng nhập khẩu mang form dáng mềm mại, thanh lịch đại diện cho một hạnh phúc viên mãn, sự gắn kết và tinh thần chăm sóc ân cần.',
+    tags:['Đồng quê','Tự nhiên','Cưới ngoài trời','Boho'],
+    colors:[{name:'Tím lavender',dot:'#a07ac0'},{name:'Trắng xanh',dot:'#c8e0f0'}],
+    price:'420,000₫',
+    sold:'1,432 đã bán', stock: 13,
+    specs:[
+      ['Loài hoa','Cúc trắng, Scabiosa, hoa đồng nội'],['Xuất xứ','Đà Lạt'],
+      ['Thời gian giữ','8–12 ngày'],['Mùa vụ','Tháng 9–3'],
+      ['Kích thước','S / M / L'],['Phong cách','Boho, Rustic, Garden Party'],
+      ['Bao bì','Giấy cói tự nhiên + dây jute'],['Dịp phù hợp','Cưới ngoài trời, picnic, tặng bạn bè'],
+    ],
+    reviews:[
+      {name:'Trịnh Phương A.',date:'15 Th04 2026',stars:5,text:'Đặt trang trí tiệc cưới ngoài trời, cả 20 bó đều đẹp và đồng đều. Khách mời ai cũng hỏi mua địa chỉ đặt hoa!',variant:'Tím lavender · Size L'},
+    ]
+  },
+  {
+    id: 6,
+      images:[
+      'images/decorative/bonsai/bonsai.jpg',
+      'images/decorative/bonsai/bonsai_1.jpg',
+      'images/decorative/bonsai/bonsai_2.jpg',
+      'images/decorative/bonsai/bonsai_3.jpg',
+      ],
+      tag: 'Thu – Đông', name: 'Hoa Giấy', latin: 'Bougainvillea',
+      desc: 'Chậu hoa giấy dạng bonsai mộc mạc nhưng bền bỉ, mang vẻ đẹp rực rỡ dưới nắng hanh và cực kỳ dễ thích nghi, chăm sóc tại ban công.',
+    tags:['Mùa thu','Trang trí nhà','Sấy khô được','Warm tones'],
+    colors:[{name:'Đỏ cam',dot:'#c86828'},{name:'Vàng nâu',dot:'#b89850'}],
+    price:'450,000₫',
+    sold:'567 đã bán', stock: 10,
+    specs:[
+      ['Thành phần','Lá phong, cành khô, quả nho dại, hoa khô'],['Xuất xứ','Nhập khẩu + Đà Lạt'],
+      ['Thời gian giữ','10–20 ngày (có thể sấy khô)'],['Mùa vụ','Tháng 9–12'],
+      ['Kích thước','M / L'],['Phong cách','Autumn, Rustic, Dried Flower'],
+      ['Bao bì','Giấy kraft nâu + twine'],['Đặc biệt','Có thể sấy khô làm hoa khô trang trí'],
+    ],
+    reviews:[
+      {name:'Cao Thị M.',date:'20 Th11 2025',stars:5,text:'Bó hoa đúng tone thu đông mình tìm kiếm lâu nay. Màu sắc rất thật và tự nhiên, không bị phẩm nhuộm. Sấy khô treo góc nhà đẹp lắm!',variant:'Đỏ cam · Size M'},
+    ]
+  },
+  {
+    id: 7,
+      images:[
+      'images/decorative/cactus/cactus.jpg',
+      'images/decorative/cactus/cactus_1.webp',
+      'images/decorative/cactus/cactus_2.webp',
+      'images/decorative/cactus/cactus_3.webp',
+      ],
+      tag: 'Hoa cao cấp', name: 'Sen Đá', latin: 'Succulent mix',
+      desc: 'Tiểu cảnh sen đá được phối trí đầy tính nghệ thuật sắp đặt, biểu tượng cho sự gắn kết bền chặt, kiên cường và tình cảm vĩnh cửu không phai mờ.',
+    tags:['Cao cấp','Nhập khẩu','Cưới hỏi','Hiếm có'],
+    
+    price:'120,000₫',
+    sold:'342 đã bán', stock: 30,
+    specs:[
+      ['Loài hoa','Mẫu đơn (Paeonia lactiflora)'],['Xuất xứ','Hà Lan · Nhật Bản'],
+      ['Thời gian giữ','5–8 ngày'],['Mùa vụ','Tháng 4–6 (có hạn)'],
+      ['Kích thước','M (3 bông) / L (5 bông) / XL (9 bông)'],
+      ['Hương thơm','Ngọt, sang trọng'],['Bao bì','Hộp quà cao cấp + thiệp'],
+      ['Lưu ý','Số lượng có hạn, đặt sớm để đảm bảo'],
+    ],
+    reviews:[
+      {name:'Đinh Như Q.',date:'12 Th05 2026',stars:5,text:'Mẫu đơn nhập Hà Lan thật sự khác xa mẫu đơn trong nước. Cánh hoa rất nhiều lớp, thơm kinh khủng luôn. Đắt nhưng xứng đáng 100%!',variant:'Hồng san hô · Size XL'},
+    ]
+  },
+  {
+    id: 8,
+      images:[
+      'images/decorative/zzplant/zzplant.jpg',
+      'images/decorative/zzplant/zzplant_1.jpg',
+      'images/decorative/zzplant/zzplant_2.jpg',
+      'images/decorative/zzplant/zzplant_3.jpg',
+      ],
+      tag: 'Bình yên & Tĩnh lặng', name: 'Cây Xanh', latin: 'Zamioculcas zamiifolia',
+      desc: 'Cây kim tiền mang lại không gian xanh mát thư thái, hỗ trợ thanh lọc không khí hiệu quả và thu hút may mắn, tài lộc cho gia chủ.',
+    tags:['Thiền định','Zen','Spa','Yoga Studio'],
+    colors:[{name:'Sen hồng',dot:'#e8a0b0'},{name:'Sen trắng',dot:'#f0ece4'}],
+    price:'250,000₫',
+    sold:'894 đã bán', stock: 15,
+    specs:[
+      ['Loài hoa','Sen hồng, súng nước, lá thuỷ sinh'],['Xuất xứ','Ninh Bình · Đồng Tháp'],
+      ['Thời gian giữ','4–6 ngày'],['Mùa vụ','Tháng 5–9'],
+      ['Kích thước','S (3 bông) / M (5 bông)'],['Phong cách','Zen, Japandi, Spa'],
+      ['Bao gồm','Hoa + lá + sỏi trang trí'],['Dịp phù hợp','Spa, yoga studio, cúng lễ, tặng người thân'],
+    ],
+    reviews:[
+      {name:'Lưu Phương T.',date:'01 Th06 2026',stars:5,text:'Đặt trang trí spa nhỏ của mình, khách vào ai cũng khen. Sen tươi, lá xanh, cực kỳ đúng phong cách zen mình muốn. Sẽ đặt hàng tháng!',variant:'Sen hồng · Size M'},
+    ]
+  },
+  {
+    id: 9,
+    images:[
+    'images/decorative/peace_lily/peace_lily.jpg',
+    'images/decorative/peace_lily/peace_lily_1.jpg',
+    'images/decorative/peace_lily/peace_lily_2.jpg',
+    'images/decorative/peace_lily/peace_lily_3.jpg',
+
+    ],
+    tag: 'Cây thanh lọc', name: 'Hoa Lan Ý (Peace Lily)', latin: 'Spathiphyllum',
+    desc: 'Hoa Lan Ý mang vẻ đẹp hoàng gia với lá xanh mướt và hoa trắng muốt như cánh buồm. Loài cây này không chỉ đẹp mà còn có khả năng thanh lọc không khí cực tốt.',
+    tags: ['Văn phòng', 'Trong nhà', 'Thanh lọc', 'Tối giản'],
+    colors: [{name: 'Trắng chuẩn', dot: '#ffffff'}],
+    price: '180,000₫',
+    sold: '142 đã bán', stock: 20,
+    specs: [['Loài hoa', 'Lan Ý (Peace Lily)'], ['Xuất xứ', 'Đà Lạt'], ['Đặc tính', 'Cây trồng chậu đất']],
+    reviews: [{name: 'Đức Anh', date: '12 Th04 2026', stars: 5, text: 'Cây xanh tốt, đóng gói cẩn thận.', variant: 'Chậu gốm trắng'}]
+  },
+  {
+    id: 10,
+    images:[
+       'images/decorative/succulent/succulent.jpg',
+       'images/decorative/succulent/succulent_1.jpg',
+       'images/decorative/succulent/succulent_2.jpg',
+       'images/decorative/succulent/succulent_3.jpg',
+    ],
+    tag: 'Dễ chăm sóc', name: 'Cây Mọng Nước (Sen Đá)', latin: 'Succulent / Echeveria',
+    desc: 'Nhóm cây mọng nước với những cánh lá dày xếp vòng tròn như đóa hoa sen. Loài cây bền bỉ, chịu hạn tốt, biểu tượng cho tình bạn và tình yêu vĩnh cửu.',
+    tags: ['Để bàn', 'Quà tặng', 'Tối giản', 'Bền bỉ'],
+    colors: [{name: 'Xanh bạc', dot: '#a3b899'}],
+    price: '80,000₫',
+    sold: '520 đã bán', stock: 50,
+    specs: [['Loài hoa', 'Sen đá / Cây mọng nước'], ['Kích thước', 'Mini / Để bàn'], ['Chăm sóc', 'Tưới nước 1 lần/tuần']],
+    reviews: [{name: 'Minh Hoàng', date: '20 Th05 2026', stars: 5, text: 'Cây rất xinh, rất hợp để bàn làm việc.', variant: 'Chậu mini'}]
+  },
+  {
+    id: 11,
+    images:[
+    'images/fresh/carnation_bouquet/carnation_bouquet.jpg',
+    'images/fresh/carnation_bouquet/carnation_bouquet_1.jpg',
+    'images/fresh/carnation_bouquet/carnation_bouquet_2.jpg',
+    'images/fresh/carnation_bouquet/carnation_bouquet_3.jpg',
+    ],
+    tag: 'Bán chạy', name: 'Bó Hoa Cẩm Chướng', latin: 'Dianthus caryophyllus',
+    desc: 'Những đóa hoa cẩm chướng mang cánh bèo mềm mại, xếp tầng đan xen lẫn nhau. Đây là loài hoa kinh điển để bày tỏ lòng biết ơn và sự ngưỡng mộ chân thành.',
+    tags: ['Tặng Mẹ', 'Sinh nhật', 'Lãng mạn'],
+    colors: [{name: 'Xanh pha trắng', dot: '#7dd3fc'}],
+    price: '350,000₫',
+    sold: '280 đã bán', stock: 10,
+    specs: [['Loài hoa', 'Cẩm chướng'], ['Độ bền', '7 - 10 ngày'], ['Bao bì', 'Giấy gói cao cấp']],
+    reviews: [{name: 'Phương Thảo', date: '10 Th05 2026', stars: 5, text: 'Hoa rất tươi, màu xanh lạ mắt.', variant: 'Bó tiêu chuẩn'}]
+  },
+  {
+    id: 12,
+    images:[
+    'images/fresh/daisy/daisy.jpg',
+    'images/fresh/daisy/daisy_1.jpg',
+    'images/fresh/daisy/daisy_2.jpg',
+    'images/fresh/daisy/daisy_3.jpg',
+    ],
+    tag: 'Yêu thích', name: 'Hoa Cúc Trắng (Daisy)', latin: 'Bellis perennis',
+    desc: 'Sự mộc mạc tinh khôi từ những cánh hoa cúc trắng ôm lấy nhụy vàng tươi tắn. Mang lại cảm giác trong trẻo, nhẹ nhàng như ánh nắng sớm mai.',
+    tags: ['Mộc mạc', 'Tươi sáng', 'Giản dị'],
+    colors: [{name: 'Trắng nhụy vàng', dot: '#ffffff'}],
+    price: '150,000₫',
+    sold: '610 đã bán', stock: 20,
+    specs: [['Loài hoa', 'Cúc họa mi / Daisy'], ['Phong cách', 'Vintage / Mộc mạc']],
+    reviews: [{name: 'Thanh Hương', date: '18 Th05 2026', stars: 5, text: 'Gói hoa rất có gu, nhẹ nhàng tinh tế.', variant: 'Giấy Kraft'}]
+  },
+  {
+    id: 13,
+    images:[
+    'images/fresh/petrea/petrea.jpg',
+    'images/fresh/petrea/petrea_1.jpg',
+    'images/fresh/petrea/petrea_2.jpg',
+    'images/fresh/petrea/petrea_3.jpg',
+    ],
+    tag: 'Độc đáo', name: 'Hoa Mai Xanh Tím (Petrea)', latin: 'Petrea volubilis',
+    desc: 'Dòng hoa leo thân gỗ nghệ thuật với những chùm hoa rủ dài mang sắc tím xanh lãng mạn. Thích hợp cho không gian ban công và sân vườn biệt thự sang trọng.',
+    tags: ['Sân vườn', 'Thân gỗ', 'Sang trọng', 'Leo giàn'],
+    colors: [{name: 'Tím xanh', dot: '#8a95c7'}],
+    price: '250,000₫', 
+    sold: '95 đã bán', stock: 12,
+    specs: [['Loài hoa', 'Mai Xanh (Petrea)'], ['Dạng cây', 'Cây leo thân gỗ lâu năm']],
+    reviews: [{name: 'Quốc Bảo', date: '02 Th06 2026', stars: 5, text: 'Cây giống tốt, hoa nở thành chùm rất đẹp.', variant: 'Cây chậu ổn định'}]
+  },
+  {
+    id: 14,
+    images:[
+    'images/fresh/sunflower_bouquet/sunflower_bouquet.webp',
+    'images/fresh/sunflower_bouquet/sunflower_bouquet_1.webp',
+    'images/fresh/sunflower_bouquet/sunflower_bouquet_2.webp',
+    'images/fresh/sunflower_bouquet/sunflower_bouquet_3.webp',
+    ],
+    tag: 'Năng lượng', name: 'Bó Hoa Hướng Dương', latin: 'Helianthus annuus',
+    desc: 'Bó hoa hướng dương rực rỡ luôn hướng về phía mặt trời. Biểu tượng của niềm tin, hy vọng vững chãi và năng lượng tích cực tràn đầy.',
+    tags: ['Tốt nghiệp', 'Chúc mừng', 'Tươi sáng'],
+    colors: [{name: 'Vàng hướng dương', dot: '#eab308'}],
+    price: '300,000₫',
+    sold: '840 đã bán', stock: 15,
+    specs: [['Loài hoa', 'Hướng dương'], ['Ý nghĩa', 'Niềm tin & Thành công'], ['Kích thước', 'Bó lớn']],
+    reviews: [{name: 'Tuấn Kiệt', date: '29 Th05 2026', stars: 5, text: 'Mua tặng tốt nghiệp bạn mình khen mãi, hoa to và rất rực rỡ.', variant: 'Bó 3 bông lớn'}]
+  },
+  {
+    id: 15,
+    images:[
+    'images/luxury/lily_bouquet/lily_bouquet_2.webp',
+    'images/luxury/lily_bouquet/lily_bouquet_1.webp',
+    'images/luxury/lily_bouquet/lily_bouquet_3.webp',
+    'images/luxury/lily_bouquet/lily_bouquet.webp',
+    ],
+    tag: 'Sang trọng', name: 'Bó Hoa Ly Trắng', latin: 'Lilium candidum',
+    desc: 'Đóa hoa ly trắng thanh lịch mang hương thơm ngào ngạt quý phái. Từng cánh hoa dày mọc bung nở kiêu hãnh giúp nâng tầm không gian phòng khách.',
+    tags: ['Quý phái', 'Hương thơm', 'Sự kiện'],
+    colors: [{name: 'Trắng tinh khôi', dot: '#f8fafc'}],
+    price: '1,200,000₫',
+    sold: '320 đã bán', stock: 5,
+    specs: [['Loài hoa', 'Hoa Ly (Lily)'], ['Đặc trưng', 'Hương thơm đậm'], ['Màu sắc', 'Trắng']],
+    reviews: [{name: 'Ngọc Ánh', date: '22 Th05 2026', stars: 5, text: 'Hoa ly thơm nức cả nhà, bông to nở rất đều.', variant: 'Bó dài luxury'}]
+  },
+  {
+    id: 16,
+    images:[
+    'images/luxury/lily_pink/lily_pink.webp',
+    'images/luxury/lily_pink/lily_pink_1.webp',
+    'images/luxury/lily_pink/lily_pink_2.webp',
+    'images/luxury/lily_pink/lily_pink_3.webp',
+    ],
+    tag: 'Ngọt ngào', name: 'Hoa Ly Hồng', latin: 'Lilium (Pink)',
+    desc: 'Sắc hồng ngọt ngào và kiêu sa của những đóa hoa ly nhập khẩu. Biểu thị cho sự giàu sang, thịnh vượng và lòng kiêu hãnh của phái đẹp.',
+    tags: ['Lãng mạn', 'Kỷ niệm', 'Chúc mừng'],
+    colors: [{name: 'Hồng cánh sen', dot: '#f472b6'}],
+    price: '950,000₫',
+    sold: '210 đã bán', stock: 15,
+    specs: [['Loài hoa', 'Hoa Ly Hồng'], ['Xuất xứ', 'Nhập khẩu']],
+    reviews: [{name: 'Hà My', date: '14 Th05 2026', stars: 5, text: 'Màu hồng rất sang, hoa không bị dập nát tí nào.', variant: 'Bó tròn'}]
+  },
+  {
+    id: 17,
+    images:[
+    'images/luxury/lily_red/lily_red.webp',
+    'images/luxury/lily_red/lily_red_1.webp',
+    'images/luxury/lily_red/lily_red_2.webp',
+    'images/luxury/lily_red/lily_red_3.webp',
+    ],
+    tag: 'Rực rỡ', name: 'Hoa Ly Đỏ', latin: 'Lilium (Red)',
+    desc: 'Màu đỏ nhung quyền lực của hoa ly đỏ tạo nên ấn tượng mạnh mẽ ngay từ cái nhìn đầu tiên. Thích hợp cho những buổi tiệc hoặc dịp lễ trọng đại.',
+    tags: ['Quý phái', 'Nổi bật', 'Khai trương'],
+    colors: [{name: 'Đỏ nhung', dot: '#b91c1c'}],
+    price: '950,000₫',
+    sold: '185 đã bán', stock: 10,
+    specs: [['Loài hoa', 'Hoa Ly Đỏ'], ['Phong cách', 'Ấm áp / Quyền lực']],
+    reviews: [{name: 'Văn Hùng', date: '01 Th06 2026', stars: 4, text: 'Hoa lạ mắt, màu đỏ thẫm rất đẹp, giao hơi trễ 10p nhưng hoa chất lượng.', variant: 'Bó giấy đen'}]
+  },
+  {
+    id: 18,
+    images:[
+    'images/luxury/orchid_blue/orchid_blue.webp',
+    'images/luxury/orchid_blue/orchid_blue_1.webp',
+    'images/luxury/orchid_blue/orchid_blue_2.webp',
+    'images/luxury/orchid_blue/orchid_blue_3.webp',
+    ],
+    tag: 'Tuyệt tác', name: 'Hoa Phong Lan Xanh', latin: 'Phalaenopsis (Blue)',
+    desc: 'Sắc xanh dương huyền bí đỉnh cao của dòng Lan Hồ Điệp xử lý nghệ thuật. Biểu tượng của sự độc bản, quý hiếm và đẳng cấp hoàng gia.',
+    tags: ['Quý phái', 'Độc đáo', 'Đối tác VIP'],
+    colors: [{name: 'Xanh hoàng gia', dot: '#1e40af'}],
+    price: '2,500,000₫',
+    sold: '120 đã bán', stock: 5,
+    specs: [['Loài hoa', 'Lan Hồ Điệp Xanh'], ['Công nghệ', 'Truyền sắc tố nghệ thuật']],
+    reviews: [{name: 'Thùy Trang', date: '03 Th06 2026', stars: 5, text: 'Hoa độc lạ vô cùng, mang đi biếu sếp ai cũng trầm trồ.', variant: 'Cành đơn nghệ thuật'}]
+  },
+  {
+    id: 19,
+    images:[
+    'images/luxury/orchid_purple/orchid_purple_2.webp',
+    'images/luxury/orchid_purple/orchid_purple.webp',
+    'images/luxury/orchid_purple/orchid_purple_1.webp',
+    'images/luxury/orchid_purple/orchid_purple_3.webp',
+    ],
+    tag: 'Thủy chung', name: 'Hoa Phong Lan Tím', latin: 'Phalaenopsis (Purple)',
+    desc: 'Cành Lan Hồ Điệp tím mộng mơ với kết cấu đối xứng hoàn hảo. Loài hoa mang vẻ đẹp thanh tịnh, tượng trưng cho sự thành công vững bền và thủy chung.',
+    tags: ['Trang trọng', 'Chúc mừng', 'Tặng sếp'],
+    colors: [{name: 'Tím đậm', dot: '#701a75'}],
+    price: '1,500,000₫',
+    sold: '290 đã bán', stock: 10,
+    specs: [['Loài hoa', 'Lan Hồ Điệp Tím'], ['Độ bền', '30 - 45 ngày']],
+    reviews: [{name: 'Minh Tâm', date: '25 Th05 2026', stars: 5, text: 'Lan hồ điệp của shop hoa rất dày cánh, chơi được lâu.', variant: 'Chậu thiết kế'}]
+  },
+  {
+    id: 20,
+    images:[
+    'images/romantic/rose_box/rose_box.webp',
+    'images/romantic/rose_box/rose_box_1.webp',
+    'images/romantic/rose_box/rose_box_2.webp',
+    'images/romantic/rose_box/rose_box_3.webp',
+    ],
+    tag: 'Lãng mạn', name: 'Hộp Hoa Hồng Cao Cấp', latin: 'Rosa (Box)',
+    desc: 'Hộp quà hoa hồng đỏ tinh tế kết hợp thiết kế hộp vuông sang trọng. Đây là sứ giả hoàn hảo thay lời muốn nói cho các cặp đôi vào những ngày kỷ niệm.',
+    tags: ['Tình yêu', 'Valentine', 'Kỷ niệm', 'Món quà'],
+    colors: [{name: 'Đỏ lãng mạn', dot: '#dc2626'}],
+    price: '550,000,₫',
+    sold: '410 đã bán', stock: 9,
+    specs: [['Loài hoa', 'Hoa hồng đỏ'], ['Dạng hộp', 'Hộp giấy nắp kính / ruy băng']],
+    reviews: [{name: 'Linh Chi', date: '20 Th05 2026', stars: 5, text: 'Hộp đóng rất chắc chắn, hoa hồng đều tăm tắp, lãng mạn lắm.', variant: 'Hộp đen Luxury'}]
+  } 
+  
+];
+
+/* ── INIT ── */
+const params = new URLSearchParams(location.search);
+const id = parseInt(params.get('id')) || 0;
+const f = flowers[id];
+
+if (!f) { document.body.innerHTML = '<p style="padding:4rem;text-align:center">Không tìm thấy sản phẩm.</p>'; }
+else { buildPage(f); }
+
+function buildPage(f) {
+  document.title = f.name + ' — Our Blossoms';
+
+  // Breadcrumb
+  document.getElementById('bcName').textContent = f.name;
+
+  // Main image
+  document.getElementById('mainPhoto').src = f.images[0];
+  document.getElementById('mainPhoto').alt = f.name;
+
+  // Thumbnails (repeat emoji for demo)
+  const thumbsEl = document.getElementById('thumbs');
+
+document.getElementById('mainPhoto').src = f.images[0];
+
+f.images.forEach((img, i) => {
+
+    const d = document.createElement('div');
+    d.className = 'thumb' + (i === 0 ? ' active' : '');
+
+    d.innerHTML = `
+        <img src="${img}"
+             style="
+                width:100%;
+                height:100%;
+                object-fit:cover;
+             ">
+    `;
+    d.onclick = () => {
+     document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+     d.classList.add('active');
+
+    document.getElementById('mainPhoto').src = img;
+   };
+    thumbsEl.appendChild(d);
+  });
+
+  // Info
+  document.getElementById('badge').textContent = f.tag;
+  document.getElementById('prodName').textContent = f.name;
+  document.getElementById('prodLatin').textContent = f.latin;
+  document.getElementById('soldCount').textContent = f.sold;
+  document.getElementById('qtyStock').textContent = `Còn ${f.stock} sản phẩm`;
+
+  // Price
+  document.getElementById('priceMain').textContent = f.price;
+  document.getElementById('priceOrig').textContent = f.origPrice;
+  document.getElementById('priceDisc').textContent = f.disc;
+
+  // Colors
+  const colorEl = document.getElementById('colorOpts');
+  f.colors.forEach((c, i) => {
+    const btn = document.createElement('div');
+    btn.className = 'color-opt' + (i === 0 ? ' active' : '');
+    btn.innerHTML = `<span class="color-dot" style="background:${c.dot}"></span>${c.name}`;
+    btn.onclick = () => {
+      document.querySelectorAll('.color-opt').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    };
+    colorEl.appendChild(btn);
+  });
+
+  // Desc tab
+  document.getElementById('descEmoji').textContent = f.emoji;
+  document.getElementById('descEmoji').style.background = f.bg;
+  document.getElementById('descTitle').textContent = f.name;
+  document.getElementById('descBody').textContent = f.desc;
+  const tagsEl = document.getElementById('descTags');
+  f.tags.forEach(t => {
+    const span = document.createElement('span');
+    span.style.cssText = 'font-size:0.65rem;letter-spacing:0.1em;padding:0.3rem 0.8rem;border:1px solid var(--border);color:var(--muted)';
+    span.textContent = t;
+    tagsEl.appendChild(span);
+  });
+
+  // Specs tab
+  const specTable = document.getElementById('specTable');
+  f.specs.forEach(([label, val]) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${label}</td><td>${val}</td>`;
+    specTable.appendChild(tr);
+  });
+
+  // Reviews
+  const reviewList = document.getElementById('reviewList');
+  f.reviews.forEach(r => {
+    const stars = '★'.repeat(r.stars) + '☆'.repeat(5-r.stars);
+    const div = document.createElement('div');
+    div.className = 'review-item';
+    div.innerHTML = `
+      <div class="review-top">
+        <div class="review-avatar">${r.name[0]}</div>
+        <div class="review-meta">
+          <div class="review-author">${r.name}</div>
+          <div class="review-date">${r.date}</div>
+        </div>
+        <div class="review-stars">${stars}</div>
+      </div>
+      <div class="review-text">${r.text}</div>
+      <div class="review-variant">Phân loại: ${r.variant}</div>
+    `;
+    reviewList.appendChild(div);
+  });
+
+  // Related products
+  const relatedGrid = document.getElementById('relatedGrid');
+  flowers.filter((_, i) => i !== id).slice(0, 4).forEach((rel, ri) => {
+    const relId = flowers.indexOf(rel);
+    const a = document.createElement('a');
+    a.className = 'related-card';
+    a.href = `product.html?id=${relId}`;
+    const thumbImage = rel.images
+    ? rel.images[0]
+    : rel.imgUrl;
+
+a.innerHTML = `
+  <div class="related-thumb">
+      <img src="${thumbImage}" alt="${rel.name}">
+  </div>
+
+  <div class="related-info">
+      <div class="related-name">${rel.name}</div>
+      <div class="related-price">${rel.price}</div>
+  </div>
+`;
+    relatedGrid.appendChild(a);
+  });
+}
+
+/* ── TABS ── */
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ── LIKE ── */
+let liked = false, count = 468;
+function toggleLike() {
+  liked = !liked;
+  count += liked ? 1 : -1;
+  document.getElementById('likeHeart').textContent = liked ? '♥' : '♡';
+  document.getElementById('likeCount').textContent = count;
+  document.getElementById('likeBtn').classList.toggle('liked', liked);
+}
+
+/* ── QTY ── */
+function changeQty(delta) {
+  const inp = document.getElementById('qtyInput');
+  inp.value = Math.max(1, parseInt(inp.value) + delta);
+}
+
+/* ── CTA ── */
+function addCart() {
+  const btn = document.querySelector('.btn-cart');
+  btn.textContent = '✓ Đã thêm vào giỏ!';
+  btn.style.background = 'var(--moss)'; btn.style.color = '#fff';
+  setTimeout(() => { btn.innerHTML = '🛒 Thêm Vào Giỏ Hàng'; btn.style.background=''; btn.style.color=''; }, 2000);
+}
+function buyNow() {
+  alert('Chức năng thanh toán đang được phát triển!');
+}
+</script>
+</body>
+</html>
