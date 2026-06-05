@@ -133,6 +133,14 @@ router.get('/checkout', function(req, res, next) {
     });
 });
 
+router.get('/contact', function(req, res) {
+  res.render('contact');
+});
+
+router.get('/about', function(req, res) {
+  res.render('about');
+});
+
 // Render trang Gallery
 router.get('/gallery', (req, res) => {
   const sql = `
