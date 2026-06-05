@@ -339,8 +339,6 @@ function buyNow(productId) {
   // Lấy giá trị số lượng hiện tại
   const qty = document.getElementById('qtyInput').value;
   
-  alert(`Đang chuyển hướng đến trang thanh toán cho ${qty} sản phẩm...`);
-  
   // Điều hướng sang trang Checkout kèm theo Mã sản phẩm và Số lượng trên URL
   window.location.href = `/checkout?id=${productId}&qty=${qty}`;
 }
